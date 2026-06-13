@@ -455,23 +455,23 @@
         <div id="evolutionPanel" class="pet-sub-pane">
             <div class="evo-vertical-list">
                 <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">🌟 金系进化路线</div>
+                    <div class="evo-title-vertical">金系进化路线</div>
                     <div class="evo-img-vertical"><img src="金.png" alt="金系进化路线图"></div>
                 </div>
                 <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">🌿 木系进化路线</div>
+                    <div class="evo-title-vertical">木系进化路线</div>
                     <div class="evo-img-vertical"><img src="木.png" alt="木系进化路线图"></div>
                 </div>
                 <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">💧 水系进化路线</div>
+                    <div class="evo-title-vertical">水系进化路线</div>
                     <div class="evo-img-vertical"><img src="水.png" alt="水系进化路线图"></div>
                 </div>
                 <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">🔥 火系进化路线</div>
+                    <div class="evo-title-vertical">火系进化路线</div>
                     <div class="evo-img-vertical"><img src="火.png" alt="火系进化路线图"></div>
                 </div>
                 <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">⛰️ 土系进化路线</div>
+                    <div class="evo-title-vertical">土系进化路线</div>
                     <div class="evo-img-vertical"><img src="土.png" alt="土系进化路线图"></div>
                 </div>
             </div>
@@ -1030,7 +1030,7 @@
         if (filteredHunicu.length + filteredBaihu.length + filteredXiaoshenlong.length + filteredShenyuan.length + filteredHuaxianzi.length + filteredXiangnaier.length + filteredXiaoshenmao.length + filteredHuoshenhou.length > 0) {
             let otherHtml = '<div class="pet-section"><div class="section-header"><span>🔮 其他神宠 <span class="cc-trigger" id="otherCcTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + (filteredHunicu.length + filteredBaihu.length + filteredXiaoshenlong.length + filteredShenyuan.length + filteredHuaxianzi.length + filteredXiangnaier.length + filteredXiaoshenmao.length + filteredHuoshenhou.length) + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
             if (filteredHunicu.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">虎妞</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' + filteredHunicu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
-            if (filteredBaihu.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' + filteredBaihu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></tr></div>';
+            if (filteredBaihu.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' + filteredBaihu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             if (filteredXiaoshenlong.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">小神龙琅玡</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' + filteredXiaoshenlong.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             if (filteredShenyuan.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">深渊魔童</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' + filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             if (filteredHuaxianzi.length) otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' + filteredHuaxianzi.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
