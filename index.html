@@ -261,11 +261,11 @@
             background: #f5dcac;
             margin: 8px 0;
         }
-        /* 进化图鉴 - 五行图片展示 */
+        /* 进化图鉴 - 五行图片展示（图片放大） */
         .evo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 30px;
             margin-top: 12px;
         }
         .evo-card {
@@ -286,25 +286,17 @@
             letter-spacing: 1px;
         }
         .evo-img {
-            padding: 20px;
+            padding: 0;
             text-align: center;
             background: #fefcf5;
         }
         .evo-img img {
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            border-radius: 16px;
-            border: 1px solid #f0dbb4;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-        .evo-note {
-            background: #fef2e0;
-            border-radius: 24px;
-            padding: 10px 16px;
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #b87c3c;
+            display: block;
+            border-radius: 0;
+            border: none;
+            box-shadow: none;
         }
         .floating-note {
             position: fixed;
@@ -440,7 +432,7 @@
             <div id="petContainer"></div>
         </div>
 
-        <!-- 进化面板 (五行图片展示) -->
+        <!-- 进化面板 (五行图片展示，图片已放大撑满) -->
         <div id="evolutionPanel" class="pet-sub-pane">
             <div class="evo-grid">
                 <div class="evo-card"><div class="evo-title">金系进化路线</div><div class="evo-img"><img src="金.png" alt="金系进化"></div></div>
@@ -449,10 +441,9 @@
                 <div class="evo-card"><div class="evo-title">火系进化路线</div><div class="evo-img"><img src="火.png" alt="火系进化"></div></div>
                 <div class="evo-card"><div class="evo-title">土系进化路线</div><div class="evo-img"><img src="土.png" alt="土系进化"></div></div>
             </div>
-            <div class="evo-note">※ 五行进化路线图 (金·木·水·火·土) 图片已上传至仓库</div>
         </div>
     </div>
-    <footer>御无双 著 | 数据基于偷心服版本 | 进化路线引用仓库图片</footer>
+    <footer>御无双 著 | 数据基于偷心服版本</footer>
 </div>
 <div id="dropToast" class="drop-toast">✨ 点击装备查看掉落信息 ✨</div>
 
@@ -978,7 +969,7 @@
     }
     function hideOtherCcPopup() { otherCcFloating.style.display = 'none'; }
     function showSeaCcPopup() {
-        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></tr>';
+        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></table>';
         xiaoxuanwuCcData.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
         html += '</table>';
         document.getElementById('seaCcContent').innerHTML = html;
@@ -993,7 +984,7 @@
     seaCcFloating.addEventListener('mouseenter', () => { if (window.seaHide) clearTimeout(window.seaHide); seaCcFloating.style.display = 'block'; });
     seaCcFloating.addEventListener('mouseleave', hideSeaCcPopup);
 
-    // 渲染合成表格（统一使用正确的列数）
+    // 渲染合成表格
     function renderTable(title, data, columns, filterLower) {
         if (!data.length) return '';
         const filtered = filterLower ? data.filter(row => row.some(cell => cell && cell.toLowerCase().includes(filterLower))) : data;
@@ -1002,9 +993,8 @@
             <div class="section-header"><span>🔮 ${title} <span style="font-size:0.7rem;">${filtered.length}条</span></span><span class="collapse-icon">▼</span></div>
             <div class="section-content">
                 <table class="pet-table"><thead><tr>${columns.map(c => `<th>${c}</th>`).join('')}</tr></thead>
-                <tbody>${filtered.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}</tbody>
-                </table>
-            </div></div>`;
+                <tbody>${filtered.map(row => `<td>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}</tbody>
+            　</div></div>`;
     }
 
     function renderPets(filter = "") {
@@ -1015,7 +1005,6 @@
         let html = '';
         html += renderTable("五行宠物", wuxingData, ["主宠", "副宠", "普通", "稀有", "备注"], lower);
         
-        // 圣殿宠物 + 获取途径
         let filteredMain = lower ? templeMainData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : templeMainData;
         let filteredAcquire = lower ? acquireData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : acquireData;
         if (filteredMain.length || filteredAcquire.length) {
@@ -1027,7 +1016,7 @@
             if (filteredAcquire.length) {
                 templeHtml += '<div class="divider"></div><div class="subgroup"><div class="subgroup-title">📋 获取途径（悟不空、§石阵巨人§、K歌仙人掌、暗夜咻豹）</div>' +
                     '<table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredAcquire.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredAcquire.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></td></div>';
             }
             templeHtml += '</div></div>';
             html += templeHtml;
@@ -1035,7 +1024,6 @@
         
         html += renderTable("五系终极", ultimateData, ["主宠", "副宠", "普通", "稀有", "备注"], lower);
         
-        // 海底神宠 (三个子表)
         let filteredWaltz = lower ? waltzData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : waltzData;
         let filteredXuanyuan = lower ? xuanyuanData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xuanyuanData;
         let filteredXiaoxuanwu = lower ? xiaoxuanwuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiaoxuanwuData;
@@ -1051,13 +1039,12 @@
             }
             if (filteredXiaoxuanwu.length) {
                 seaHtml += '<div class="subgroup"><div class="subgroup-title">小玄武</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredXiaoxuanwu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredXiaoxuanwu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></tr></div>';
             }
             seaHtml += '</div></div>';
             html += seaHtml;
         }
         
-        // 其他神宠
         let filteredHunicu = lower ? hunicuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : hunicuData;
         let filteredBaihu = lower ? baihuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : baihuData;
         let filteredXiaoshenlong = lower ? xiaoshenlongData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiaoshenlongData;
@@ -1072,10 +1059,10 @@
             let otherHtml = '<div class="pet-section"><div class="section-header"><span>🔮 其他神宠 <span class="cc-trigger" id="otherCcTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + otherTotal + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
             if (filteredHunicu.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">虎妞</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
-                    filteredHunicu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredHunicu.map(row => `</tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredBaihu.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></td></thead><tbody>' +
                     filteredBaihu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiaoshenlong.length) {
@@ -1084,10 +1071,10 @@
             }
             if (filteredShenyuan.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">深渊魔童</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><table></div>';
             }
             if (filteredHuaxianzi.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></td></thead><tbody>' +
                     filteredHuaxianzi.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiangnaier.length) {
@@ -1096,7 +1083,7 @@
             }
             if (filteredXiaoshenmao.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">小神帽</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredXiaoshenmao.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredXiaoshenmao.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><tr></div>';
             }
             if (filteredHuoshenhou.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">火神猴</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
@@ -1109,7 +1096,6 @@
         if (!html) html = '<div class="pet-section"><div class="section-header">🔍 未找到相关宠物</div></div>';
         container.innerHTML = html;
         
-        // 折叠功能
         document.querySelectorAll('#petContainer .pet-section .section-header').forEach(header => {
             const content = header.parentElement.querySelector('.section-content');
             const icon = header.querySelector('.collapse-icon');
