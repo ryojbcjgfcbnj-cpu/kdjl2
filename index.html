@@ -261,11 +261,11 @@
             background: #f5dcac;
             margin: 8px 0;
         }
-        /* 进化图鉴 - 五行图片展示（图片放大） */
+        /* 进化图鉴 - 五行图片展示（放大图片） */
         .evo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
+            gap: 32px;
             margin-top: 12px;
         }
         .evo-card {
@@ -278,25 +278,25 @@
         }
         .evo-title {
             background: #f5e2c1;
-            padding: 12px 16px;
+            padding: 14px 16px;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #8b5a2b;
             text-align: center;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         .evo-img {
-            padding: 0;
+            padding: 24px;
             text-align: center;
             background: #fefcf5;
         }
         .evo-img img {
             width: 100%;
+            max-width: 100%;
             height: auto;
-            display: block;
-            border-radius: 0;
-            border: none;
-            box-shadow: none;
+            border-radius: 16px;
+            border: 1px solid #f0dbb4;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .floating-note {
             position: fixed;
@@ -432,7 +432,7 @@
             <div id="petContainer"></div>
         </div>
 
-        <!-- 进化面板 (五行图片展示，图片已放大撑满) -->
+        <!-- 进化面板 (五行图片展示 - 已放大) -->
         <div id="evolutionPanel" class="pet-sub-pane">
             <div class="evo-grid">
                 <div class="evo-card"><div class="evo-title">金系进化路线</div><div class="evo-img"><img src="金.png" alt="金系进化"></div></div>
@@ -969,7 +969,7 @@
     }
     function hideOtherCcPopup() { otherCcFloating.style.display = 'none'; }
     function showSeaCcPopup() {
-        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></table>';
+        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></tr>';
         xiaoxuanwuCcData.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
         html += '</table>';
         document.getElementById('seaCcContent').innerHTML = html;
@@ -993,8 +993,9 @@
             <div class="section-header"><span>🔮 ${title} <span style="font-size:0.7rem;">${filtered.length}条</span></span><span class="collapse-icon">▼</span></div>
             <div class="section-content">
                 <table class="pet-table"><thead><tr>${columns.map(c => `<th>${c}</th>`).join('')}</tr></thead>
-                <tbody>${filtered.map(row => `<td>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}</tbody>
-            　</div></div>`;
+                <tbody>${filtered.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}</tbody>
+            </table>
+            </div></div>`;
     }
 
     function renderPets(filter = "") {
@@ -1016,7 +1017,7 @@
             if (filteredAcquire.length) {
                 templeHtml += '<div class="divider"></div><div class="subgroup"><div class="subgroup-title">📋 获取途径（悟不空、§石阵巨人§、K歌仙人掌、暗夜咻豹）</div>' +
                     '<table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredAcquire.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></td></div>';
+                    filteredAcquire.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             templeHtml += '</div></div>';
             html += templeHtml;
@@ -1034,12 +1035,12 @@
                     filteredWaltz.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXuanyuan.length) {
-                seaHtml += '<div class="subgroup"><div class="subgroup-title">★龙蛇玄武★</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                seaHtml += '<div class="subgroup"><div class="subgroup-title">★龙蛇玄武★</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></td></thead><tbody>' +
                     filteredXuanyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiaoxuanwu.length) {
                 seaHtml += '<div class="subgroup"><div class="subgroup-title">小玄武</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredXiaoxuanwu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></tr></div>';
+                    filteredXiaoxuanwu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><td></div>';
             }
             seaHtml += '</div></div>';
             html += seaHtml;
@@ -1059,10 +1060,10 @@
             let otherHtml = '<div class="pet-section"><div class="section-header"><span>🔮 其他神宠 <span class="cc-trigger" id="otherCcTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + otherTotal + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
             if (filteredHunicu.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">虎妞</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
-                    filteredHunicu.map(row => `</tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                    filteredHunicu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><table></div>';
             }
             if (filteredBaihu.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></td></thead><tbody>' +
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
                     filteredBaihu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiaoshenlong.length) {
@@ -1071,23 +1072,23 @@
             }
             if (filteredShenyuan.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">深渊魔童</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><table></div>';
+                    filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></tr></div>';
             }
             if (filteredHuaxianzi.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></td></thead><tbody>' +
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
                     filteredHuaxianzi.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiangnaier.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">香奈儿</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">香奈儿</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th><tr></thead><tbody>' +
                     filteredXiangnaier.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
             }
             if (filteredXiaoshenmao.length) {
                 otherHtml += '<div class="subgroup"><div class="subgroup-title">小神帽</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
-                    filteredXiaoshenmao.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody><tr></div>';
+                    filteredXiaoshenmao.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</td>`).join('') + '</tbody></tr></div>';
             }
             if (filteredHuoshenhou.length) {
-                otherHtml += '<div class="subgroup"><div class="subgroup-title">火神猴</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
-                    filteredHuoshenhou.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">火神猴</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th><tr></thead><tbody>' +
+                    filteredHuoshenhou.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></td></div>';
             }
             otherHtml += '</div></div>';
             html += otherHtml;
