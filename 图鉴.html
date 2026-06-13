@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>偷心服口袋精灵2 · 装备与宠物百科</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/616/616491.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #fdf8ed;
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 235, 190, 0.5) 2%, transparent 2.5%);
+            background-size: 28px 28px;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', '楷体', Roboto, serif;
+            padding: 20px;
+            color: #2c2418;
+        }
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: #fffef7;
+            border-radius: 2rem;
+            border: 1px solid #f3cf8a;
+            box-shadow: 0 20px 35px rgba(100, 60, 10, 0.15);
+            padding: 1.5rem;
+        }
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            border-bottom: 2px solid #f5dcac;
+            padding-bottom: 8px;
+        }
+        .tab-btn {
+            background: #fef5e4;
+            border: none;
+            padding: 10px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #b87c3c;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .tab-btn.active {
+            background: #f5bc70;
+            color: #2c2418;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* 宠物内部子标签 */
+        .pet-sub-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0d8b0;
+            padding-bottom: 6px;
+        }
+        .pet-sub-btn {
+            background: #fef5e4;
+            border: none;
+            padding: 6px 28px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            color: #b87c3c;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .pet-sub-btn.active {
+            background: #f5bc70;
+            color: #2c2418;
+        }
+        .pet-sub-pane {
+            display: none;
+        }
+        .pet-sub-pane.active {
+            display: block;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #c9922b, #e5b357);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .sub {
+            text-align: center;
+            color: #b87c3c;
+            margin-bottom: 24px;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            background: #fcf5e6;
+            padding: 8px 20px;
+            border-radius: 60px;
+        }
+        .search-box {
+            flex: 2;
+            min-width: 200px;
+            background: #fff;
+            border-radius: 40px;
+            padding: 5px 18px;
+            border: 1px solid #e8c28a;
+        }
+        .search-box input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.9rem;
+        }
+        .toolbar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .note-trigger {
+            display: inline-block;
+            background: #f5bc70;
+            color: #2c2418;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .note-trigger:hover {
+            background: #ffda9e;
+            transform: scale(1.02);
+        }
+        /* 装备样式 */
+        .equip-section {
+            background: #fffaf0;
+            border-radius: 1.2rem;
+            border: 1px solid #f5dcac;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .section-title {
+            background: #fff3e0;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #f5dcac;
+            color: #a46f2c;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-title:hover {
+            background: #ffefcf;
+        }
+        .section-content {
+            display: block;
+        }
+        .section-content.collapsed {
+            display: none;
+        }
+        .subgroup {
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+        .subgroup-title {
+            background: #fef5e8;
+            padding: 6px 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #b87c3c;
+            border-left: 4px solid #f5bc70;
+            margin: 6px 12px 2px 12px;
+        }
+        .item-list {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            gap: 8px 12px;
+        }
+        .equip-card {
+            background: #fffcf4;
+            padding: 4px 14px;
+            border-radius: 32px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid #f0cc92;
+            transition: 0.1s;
+        }
+        .equip-card:hover {
+            background: #ffe8c7;
+            transform: translateY(-1px);
+        }
+        /* 宠物样式 */
+        .pet-section {
+            background: #fffaf0;
+            border-radius: 1.2rem;
+            border: 1px solid #f5dcac;
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+        .section-header {
+            background: #fff3e0;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #f5dcac;
+            color: #a46f2c;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header:hover {
+            background: #ffefcf;
+        }
+        .pet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+            table-layout: fixed;
+        }
+        .pet-table th,
+        .pet-table td {
+            border: 1px solid #f0dbb4;
+            padding: 6px 8px;
+            text-align: left;
+            vertical-align: top;
+            background: #fffcf7;
+            word-break: break-word;
+        }
+        .pet-table th {
+            background: #f5e8d0;
+            font-weight: bold;
+            color: #6b4c2a;
+            padding: 8px 8px;
+        }
+        .divider {
+            height: 1px;
+            background: #f5dcac;
+            margin: 8px 0;
+        }
+        /* 进化图鉴 - 五行图片展示 */
+        .evo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+            margin-top: 12px;
+        }
+        .evo-card {
+            background: #fffaf0;
+            border-radius: 1.2rem;
+            border: 1px solid #f0cf94;
+            overflow: hidden;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        .evo-title {
+            background: #f5e2c1;
+            padding: 12px 16px;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #8b5a2b;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .evo-img {
+            padding: 20px;
+            text-align: center;
+            background: #fefcf5;
+        }
+        .evo-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            border: 1px solid #f0dbb4;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .evo-note {
+            background: #fef2e0;
+            border-radius: 24px;
+            padding: 10px 16px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #b87c3c;
+        }
+        .floating-note {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2c2418e6;
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 20px 30px;
+            min-width: 280px;
+            max-width: 500px;
+            z-index: 2000;
+            display: none;
+            border: 2px solid #f5bc70;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            color: #ffefcf;
+            font-size: 0.85rem;
+            pointer-events: none;
+        }
+        .floating-note h4 {
+            margin-bottom: 12px;
+            color: #f5bc70;
+            border-bottom: 1px solid #f5bc70;
+            padding-bottom: 6px;
+        }
+        .floating-note ul {
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .floating-note li {
+            background: #4a3a2a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+        .cc-trigger {
+            display: inline-block;
+            background: #d9a13b;
+            color: #2c2418;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 12px;
+            cursor: pointer;
+        }
+        .cc-trigger:hover {
+            background: #f5bc70;
+        }
+        .drop-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #1e1a12;
+            color: #ffefcf;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            z-index: 1000;
+            display: block;
+            white-space: nowrap;
+            font-weight: bold;
+        }
+        @media (max-width: 700px) {
+            .pet-table th,
+            .pet-table td {
+                font-size: 0.65rem;
+                padding: 4px;
+            }
+            .floating-note {
+                width: 90%;
+                padding: 15px;
+            }
+            .note-trigger {
+                padding: 2px 8px;
+                font-size: 0.6rem;
+            }
+            .evo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        footer {
+            text-align: center;
+            margin-top: 32px;
+            color: #c9984b;
+            border-top: 1px solid #f5dcac;
+            padding-top: 16px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📖 偷心服口袋精灵2 · 百科全书</h1>
+    <div class="sub">✦ 装备掉落 | 宠物合成 + 五行进化 ✦</div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="equip">⚔️ 装备图鉴</button>
+        <button class="tab-btn" data-tab="pet">🐾 宠物图鉴</button>
+    </div>
+
+    <!-- 装备图鉴 Tab (完整保留) -->
+    <div id="equipTab" class="tab-content active">
+        <div class="toolbar">
+            <div class="search-box"><input type="text" id="equipSearch" placeholder="搜索装备..."></div>
+        </div>
+        <div id="equipmentGrid"></div>
+    </div>
+
+    <!-- 宠物图鉴 Tab -->
+    <div id="petTab" class="tab-content">
+        <!-- 宠物内部子标签 -->
+        <div class="pet-sub-tabs">
+            <button class="pet-sub-btn active" data-sub="synthesize">🐣 合成图鉴</button>
+            <button class="pet-sub-btn" data-sub="evolution">🌟 进化图鉴</button>
+        </div>
+
+        <!-- 合成面板 (完整保留原有内容) -->
+        <div id="synthesizePanel" class="pet-sub-pane active">
+            <div class="toolbar">
+                <div class="search-box"><input type="text" id="petSearch" placeholder="搜索宠物..."></div>
+                <div class="toolbar-right">
+                    <span class="note-trigger" data-note="newland">📌 新大陆宠物</span>
+                    <span class="note-trigger" data-note="tier10">📌 10阶宠</span>
+                    <span class="note-trigger" data-note="high">📌 高阶宠</span>
+                    <span class="note-trigger" data-note="sea">📌 海底宠</span>
+                </div>
+            </div>
+            <div id="petContainer"></div>
+        </div>
+
+        <!-- 进化面板 (五行图片展示) -->
+        <div id="evolutionPanel" class="pet-sub-pane">
+            <div class="evo-grid">
+                <div class="evo-card"><div class="evo-title">金系进化路线</div><div class="evo-img"><img src="金.png" alt="金系进化"></div></div>
+                <div class="evo-card"><div class="evo-title">木系进化路线</div><div class="evo-img"><img src="木.png" alt="木系进化"></div></div>
+                <div class="evo-card"><div class="evo-title">水系进化路线</div><div class="evo-img"><img src="水.png" alt="水系进化"></div></div>
+                <div class="evo-card"><div class="evo-title">火系进化路线</div><div class="evo-img"><img src="火.png" alt="火系进化"></div></div>
+                <div class="evo-card"><div class="evo-title">土系进化路线</div><div class="evo-img"><img src="土.png" alt="土系进化"></div></div>
+            </div>
+            <div class="evo-note">※ 五行进化路线图 (金·木·水·火·土) 图片已上传至仓库</div>
+        </div>
+    </div>
+    <footer>御无双 著 | 数据基于偷心服版本 | 进化路线引用仓库图片</footer>
+</div>
+<div id="dropToast" class="drop-toast">✨ 点击装备查看掉落信息 ✨</div>
+
+<!-- 浮动弹窗 -->
+<div id="floatingNote" class="floating-note">
+    <h4 id="noteTitle">📋 宠物列表</h4>
+    <ul id="noteList"></ul>
+</div>
+<div id="ccFloating" class="floating-note" style="max-width: 650px;">
+    <h4>🔄 圣殿宠物刷CC途径</h4>
+    <div id="ccContent"></div>
+</div>
+<div id="otherCcFloating" class="floating-note" style="max-width: 650px;">
+    <h4>🔄 其他神宠刷CC途径</h4>
+    <div id="otherCcContent"></div>
+</div>
+<div id="seaCcFloating" class="floating-note" style="max-width: 650px;">
+    <h4>🔄 海底神宠刷CC途径</h4>
+    <div id="seaCcContent"></div>
+</div>
+
+<script>
+(function() {
+    // ===================== 装备数据库 =====================
+    const dropData = new Map();
+    function registerItem(name, mapStr, dropType, difficulty) {
+        dropData.set(name, { map: mapStr, type: dropType, diff: difficulty });
+    }
+
+    // BOSS装备
+    ["黄金羽衣","黄金脚环","黄金利爪","黄金头饰","黄金羽翼"].forEach(i => registerItem(i, "新手基地", "BOSS掉落", "较难"));
+    registerItem("兔神的魔咒", "潮汐海崖", "BOSS掉落", "极难");
+    registerItem("兔神的祝福", "潮汐海崖", "BOSS掉落", "极难");
+    registerItem("兔神的威严", "冰滩", "BOSS掉落", "极难");
+    registerItem("兔神的守护", "冰滩", "BOSS掉落", "极难");
+    registerItem("天蛇的魔魄", "巨石山脉", "BOSS掉落", "极难");
+    registerItem("天蛇的魔瞳", "巨石山脉", "BOSS掉落", "极难");
+    registerItem("天蛇的魔心", "黄金陵", "BOSS掉落", "极难");
+    registerItem("火神的烈焰之羽", "炽热沙滩", "BOSS掉落", "极难");
+    registerItem("火神的魔焰手环", "炽热沙滩、尤玛火山", "BOSS掉落", "极难");
+    registerItem("火神的炽血圣钻", "尤玛火山", "BOSS掉落", "极难");
+    const demons = ["恶魔的魔神脚环","恶魔的刺甲黑鳞","恶魔的噬血镰刀","恶魔的毁灭指环","恶魔的魔咒黑角","恶魔的暗夜珠链"];
+    demons.forEach(i => registerItem(i, "死亡沙漠、海市蜃楼", "BOSS掉落", "较难"));
+
+    const elements = ["金","木","水","火","土"];
+
+    // 珠系列
+    elements.forEach(e => registerItem(`(${e})水晶珠`, "新手基地", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})聚灵珠`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})噬血珠`, "黄金陵、炽热沙滩、尤玛火山", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})炽星珠`, "炽热沙滩、尤玛火山", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})碎月珠`, "死亡沙漠", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})朝日珠`, "海市蜃楼", "小怪掉落", "较难"));
+    const tianmo = ["金刚之天魔珠","神木之天魔珠","水蕴之天魔珠","火精之天魔珠","厚土之天魔珠"];
+    const moshou = ["金刚之魔兽珠","神木之魔兽珠","水蕴之魔兽珠","火精之魔兽珠","厚土之魔兽珠"];
+    tianmo.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+    moshou.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+
+    // 铃铛系列
+    elements.forEach(e => registerItem(`(${e})护身铃铛`, "新手基地", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})黄铜铃铛`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})碧金铃铛`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})百蝶铃铛`, "炽热沙滩、尤玛火山", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})金丝铃铛`, "死亡沙漠", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})星辰铃铛`, "海市蜃楼", "小怪掉落", "较难"));
+    const fengyangBell = ["金刚之凤阳铃铛","神木之凤阳铃铛","水蕴之凤阳铃铛","火精之凤阳铃铛","厚土之凤阳铃铛"];
+    const jinyuBell = ["金刚之金羽铃铛","神木之金羽铃铛","水蕴之金羽铃铛","火精之金羽铃铛","厚土之金羽铃铛"];
+    fengyangBell.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+    jinyuBell.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+
+    // 护身系列
+    elements.forEach(e => registerItem(`(${e})护身羽绒`, "新手基地", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})黄铜轻甲`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})碧金护身`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})百蝶护身`, "炽热沙滩、尤玛火山", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})金丝软甲`, "死亡沙漠", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})星辰护体`, "海市蜃楼", "小怪掉落", "较难"));
+    const fengyangBody = ["金刚之凤阳护体","神木之凤阳护体","水蕴之凤阳护体","火精之凤阳护体","厚土之凤阳护体"];
+    const jinyuBody = ["金刚之金羽护身","神木之金羽护身","水蕴之金羽护身","火精之金羽护身","厚土之金羽护身"];
+    fengyangBody.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+    jinyuBody.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+
+    // 脚环系列
+    elements.forEach(e => registerItem(`(${e})护身脚环`, "新手基地", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})黄铜脚环`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})碧金脚环`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})百蝶脚环`, "炽热沙滩、尤玛火山", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})金丝脚环`, "死亡沙漠", "小怪掉落", "普通"));
+    elements.forEach(e => registerItem(`(${e})星辰脚环`, "海市蜃楼", "小怪掉落", "较难"));
+    const fengyangFoot = ["金刚之凤阳脚环","神木之凤阳脚环","水蕴之凤阳脚环","火精之凤阳脚环","厚土之凤阳脚环"];
+    const jinyuFoot = ["金刚之金羽脚环","神木之金羽脚环","水蕴之金羽脚环","火精之金羽脚环","厚土之金羽脚环"];
+    fengyangFoot.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+    jinyuFoot.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
+
+    // 项链指环
+    const commonAll = "新手基地、妖精森林、潮汐海崖、巨石山脉、黄金陵、炽热沙滩、尤玛火山";
+    const commonHard = "黄金陵、炽热沙滩、尤玛火山";
+    ["金星项链","金星指环","坚固项链","坚固指环","灵巧项链","灵巧指环","陨星项链","陨星指环","气血项链","气血指环"].forEach(i => registerItem(i, commonAll, "小怪掉落", "极难"));
+    ["狼牙项链","狼牙指环","龟甲项链","龟甲指环","刺客项链","刺客指环","重生项链","重生指环","冥月项链","冥月指环"].forEach(i => registerItem(i, commonHard, "小怪掉落", "极难"));
+    ["勇气项链","勇气指环"].forEach(i => registerItem(i, "炽热沙滩、尤玛火山、死亡沙漠", "小怪掉落", "极难"));
+    ["耀日项链","耀日指环","钻石项链","钻石指环","无痕项链","无痕指环","祝福项链","祝福指环"].forEach(i => registerItem(i, "死亡沙漠", "小怪掉落", "极难"));
+
+    // 龙宫系列
+    const dragon = ["龙宫之杖","龙宫布帽","龙宫铁靴","龙宫之宝","龙宫宝杖","龙宫宝帽","龙宫宝靴","龙宫宝甲","龙宫珍宝","龙宫神甲","龙宫神靴","龙宫神帽","龙宫神杖","龙宫贵宝"];
+    dragon.forEach(i => registerItem(i, "海底世界", "小怪掉落", "困难"));
+
+    // 雷霆/暴风/威望
+    registerItem("雷雳之剑", "石阵", "BOSS掉落", "极难");
+    registerItem("雷雳圣甲", "石阵", "小怪掉落", "极难");
+    registerItem("雷雳之靴", "石阵", "小怪掉落", "极难");
+    registerItem("雷雳战盔", "石阵", "小怪掉落", "极难");
+    registerItem("雷霆之戒", "神秘商店", "商店购买", "简单");
+    registerItem("雷霆羽翼", "神秘商店", "商店购买", "简单");
+    registerItem("暴风权杖", "埋骨之地", "小怪掉落", "极难");
+    registerItem("暴风之珠", "埋骨之地", "小怪掉落", "极难");
+    registerItem("暴风之盔", "孢子林", "小怪掉落", "极难");
+    registerItem("暴风神甲", "孢子林", "小怪掉落", "极难");
+    registerItem("暴风之靴", "孢子林", "小怪掉落", "极难");
+    ["威猛神弓","威信藤甲","神威战靴","威世之链","威望之戒","神威之翼","威严头盔","威光镯","威光宝石"].forEach(i => registerItem(i, "铁匠铺", "威望购买", "简单"));
+
+    // 神宠专属
+    registerItem("卓越之剑", "黑王子", "神宠专属", "特殊");
+    registerItem("祈祷之靴", "香奈儿", "神宠专属", "特殊");
+    registerItem("霓裳羽翼", "睡美人雅雅", "神宠专属", "特殊");
+    registerItem("麒麟圣铠", "圣火麒麟", "神宠专属", "特殊");
+    registerItem("普拉朵之链", "草莓普拉朵", "神宠专属", "特殊");
+    registerItem("紫晶手链", "人鱼公主露欣", "神宠专属", "特殊");
+    registerItem("花之恋", "兔啦花花", "神宠专属", "特殊");
+    registerItem("天使光芒", "神宠萌萌", "神宠专属", "特殊");
+    registerItem("百魅魔戒", "花仙子", "神宠专属", "特殊");
+    registerItem("灵巧之帽", "小不点俊妮", "神宠专属", "特殊");
+    registerItem("神兽手镯", "神兽幽幽", "神宠专属", "特殊");
+    registerItem("终极之链", "终极斑", "神宠专属", "特殊");
+    registerItem("精雕圣铠", "古木精", "神宠专属", "特殊");
+    registerItem("幻彩猫靴", "猫女神", "神宠专属", "特殊");
+    registerItem("克隆羽翼", "科学怪人", "神宠专属", "特殊");
+    registerItem("潜伏魔刀", "潜魔兽", "神宠专属", "特殊");
+    registerItem("可可石光", "可可小魔", "神宠专属", "特殊");
+    registerItem("魔神钢爪", "战翼魔神", "神宠专属", "特殊");
+    registerItem("蛇魔戒指", "蛇魔丝西娜", "神宠专属", "特殊");
+    registerItem("将军之帽", "人头马将军", "神宠专属", "特殊");
+
+    // 女神系列
+    registerItem("女神翅膀", "秋千女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神靴子", "人鱼女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神之箭", "双子女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神手镯", "莲花女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神战袍", "凤凰女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神宝石", "白虎女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神道具", "春风女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神项链", "铁骑女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神戒指", "太阳女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    registerItem("女神之帽", "魔法女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+
+    ["玲珑之铠","玲珑之盔","玲珑之靴","玲珑之链","玲珑之翼","玲珑之镯","玲珑之翠","玲珑之剑","玲珑之戒"].forEach(i => registerItem(i, "vip至尊礼袋", "开包", "简单"));
+    ["神恩之甲","神恩之盔","神恩之靴","神恩之链","神恩之翼","神恩之镯","神恩之珠","神恩之剑","神恩之戒"].forEach(i => registerItem(i, "神恩魔法石", "魔法屋开包", "简单"));
+    registerItem("战令左卡", "高级战令", "战令任务", "普通");
+    registerItem("战令右卡", "高级战令", "战令任务", "普通");
+    registerItem("战令背景", "高级战令", "战令任务", "普通");
+    registerItem("战令皮肤", "高级战令", "战令任务", "普通");
+    ["尾生之泪恋","比翼恋","逢羡履恋","君我剑恋","轻罗流萤衫恋","柔情方巾恋","佳人之恋恋","相望镯恋","三生戒恋"].forEach(i => registerItem(i, "新手赠送", "新手礼包", "简单"));
+    ["尾生之泪改","比翼改","逢羡履改","君我剑改","轻罗流萤衫改","柔情方巾改","佳人之恋改","相望镯改","三生戒改"].forEach(i => registerItem(i, "至爱情人魔法石", "魔法屋开包", "简单"));
+    registerItem("婚戒", "情人岛求婚", "情侣任务", "普通");
+    registerItem("义戒", "情人岛结义", "结义任务", "普通");
+
+    // 装备分组渲染
+    const beadGroups = [
+        { title: "水晶珠", items: elements.map(e => `(${e})水晶珠`) },
+        { title: "聚灵珠", items: elements.map(e => `(${e})聚灵珠`) },
+        { title: "噬血珠", items: elements.map(e => `(${e})噬血珠`) },
+        { title: "炽星珠", items: elements.map(e => `(${e})炽星珠`) },
+        { title: "碎月珠", items: elements.map(e => `(${e})碎月珠`) },
+        { title: "朝日珠", items: elements.map(e => `(${e})朝日珠`) },
+        { title: "天魔珠", items: tianmo },
+        { title: "魔兽珠", items: moshou }
+    ];
+    const bellGroups = [
+        { title: "护身铃铛", items: elements.map(e => `(${e})护身铃铛`) },
+        { title: "黄铜铃铛", items: elements.map(e => `(${e})黄铜铃铛`) },
+        { title: "碧金铃铛", items: elements.map(e => `(${e})碧金铃铛`) },
+        { title: "百蝶铃铛", items: elements.map(e => `(${e})百蝶铃铛`) },
+        { title: "金丝铃铛", items: elements.map(e => `(${e})金丝铃铛`) },
+        { title: "星辰铃铛", items: elements.map(e => `(${e})星辰铃铛`) },
+        { title: "凤阳铃铛", items: fengyangBell },
+        { title: "金羽铃铛", items: jinyuBell }
+    ];
+    const armorGroups = [
+        { title: "护身羽绒", items: elements.map(e => `(${e})护身羽绒`) },
+        { title: "黄铜轻甲", items: elements.map(e => `(${e})黄铜轻甲`) },
+        { title: "碧金护身", items: elements.map(e => `(${e})碧金护身`) },
+        { title: "百蝶护身", items: elements.map(e => `(${e})百蝶护身`) },
+        { title: "金丝软甲", items: elements.map(e => `(${e})金丝软甲`) },
+        { title: "星辰护体", items: elements.map(e => `(${e})星辰护体`) },
+        { title: "凤阳护体", items: fengyangBody },
+        { title: "金羽护身", items: jinyuBody }
+    ];
+    const footGroups = [
+        { title: "护身脚环", items: elements.map(e => `(${e})护身脚环`) },
+        { title: "黄铜脚环", items: elements.map(e => `(${e})黄铜脚环`) },
+        { title: "碧金脚环", items: elements.map(e => `(${e})碧金脚环`) },
+        { title: "百蝶脚环", items: elements.map(e => `(${e})百蝶脚环`) },
+        { title: "金丝脚环", items: elements.map(e => `(${e})金丝脚环`) },
+        { title: "星辰脚环", items: elements.map(e => `(${e})星辰脚环`) },
+        { title: "凤阳脚环", items: fengyangFoot },
+        { title: "金羽脚环", items: jinyuFoot }
+    ];
+    const bossSubSections = [
+        { title: "黄金系列", items: ["黄金羽衣","黄金脚环","黄金利爪","黄金头饰","黄金羽翼"] },
+        { title: "兔神系列", items: ["兔神的魔咒","兔神的祝福","兔神的威严","兔神的守护"] },
+        { title: "天蛇系列", items: ["天蛇的魔魄","天蛇的魔瞳","天蛇的魔心"] },
+        { title: "火神系列", items: ["火神的烈焰之羽","火神的魔焰手环","火神的炽血圣钻"] },
+        { title: "恶魔系列", items: demons }
+    ];
+    const shengshiItems = ["卓越之剑","祈祷之靴","霓裳羽翼","麒麟圣铠","普拉朵之链","紫晶手链","花之恋","天使光芒","百魅魔戒","灵巧之帽"];
+    const natureItems = ["神兽手镯","终极之链","精雕圣铠","幻彩猫靴","克隆羽翼","潜伏魔刀","可可石光","魔神钢爪","蛇魔戒指","将军之帽"];
+    const goddessItems = ["女神翅膀","女神靴子","女神之箭","女神手镯","女神战袍","女神宝石","女神道具","女神项链","女神戒指","女神之帽"];
+    const sections = [
+        { title: "🔥 BOSS装备系列", type: "bossGroup", groups: bossSubSections },
+        { title: "💎 珠系列", type: "group", groups: beadGroups },
+        { title: "🔔 铃铛系列", type: "group", groups: bellGroups },
+        { title: "🛡️ 护身系列", type: "group", groups: armorGroups },
+        { title: "⭕ 脚环系列", type: "group", groups: footGroups },
+        { title: "💍 项链、指环系列", type: "simple", items: ["金星项链","金星指环","坚固项链","坚固指环","灵巧项链","灵巧指环","陨星项链","陨星指环","气血项链","气血指环","狼牙项链","狼牙指环","龟甲项链","龟甲指环","刺客项链","刺客指环","重生项链","重生指环","冥月项链","冥月指环","勇气项链","勇气指环","耀日项链","耀日指环","钻石项链","钻石指环","无痕项链","无痕指环","祝福项链","祝福指环"] },
+        { title: "🐉 龙宫系列", type: "simple", items: dragon },
+        { title: "⚡ 雷霆系列", type: "simple", items: ["雷雳之剑","雷雳圣甲","雷雳之靴","雷雳战盔","雷霆之戒","雷霆羽翼"] },
+        { title: "🌪️ 暴风系列", type: "simple", items: ["暴风权杖","暴风之珠","暴风之盔","暴风神甲","暴风之靴"] },
+        { title: "🏅 威望系列", type: "simple", items: ["威猛神弓","威信藤甲","神威战靴","威世之链","威望之戒","神威之翼","威严头盔","威光镯","威光宝石"] },
+        { title: "✨ 盛世系列", type: "simple", items: shengshiItems },
+        { title: "🌿 自然系列", type: "simple", items: natureItems },
+        { title: "👸 女神系列", type: "simple", items: goddessItems },
+        { title: "💎 玲珑系列", type: "simple", items: ["玲珑之铠","玲珑之盔","玲珑之靴","玲珑之链","玲珑之翼","玲珑之镯","玲珑之翠","玲珑之剑","玲珑之戒"] },
+        { title: "🙏 神恩系列", type: "simple", items: ["神恩之甲","神恩之盔","神恩之靴","神恩之链","神恩之翼","神恩之镯","神恩之珠","神恩之剑","神恩之戒"] },
+        { title: "⚙️ 战令系列", type: "simple", items: ["战令左卡","战令右卡","战令背景","战令皮肤"] },
+        { title: "💕 情人恋系列", type: "simple", items: ["尾生之泪恋","比翼恋","逢羡履恋","君我剑恋","轻罗流萤衫恋","柔情方巾恋","佳人之恋恋","相望镯恋","三生戒恋"] },
+        { title: "💕 情人改系列", type: "simple", items: ["尾生之泪改","比翼改","逢羡履改","君我剑改","轻罗流萤衫改","柔情方巾改","佳人之恋改","相望镯改","三生戒改"] },
+        { title: "💍 情侣结义系列", type: "simple", items: ["婚戒","义戒"] }
+    ];
+
+    function createEquipCard(name) {
+        const card = document.createElement('div');
+        card.className = 'equip-card';
+        card.textContent = name;
+        card.onclick = () => {
+            const data = dropData.get(name);
+            const toast = document.getElementById('dropToast');
+            if (data) toast.textContent = `✨ ${name} · 📍 ${data.map} · 🧾 ${data.type} · ⚡ ${data.diff} ✨`;
+            else toast.textContent = `⚠️ ${name} · 暂无掉落信息 ⚠️`;
+        };
+        return card;
+    }
+
+    function renderEquip(filter = "") {
+        const grid = document.getElementById('equipmentGrid');
+        if (!grid) return;
+        grid.innerHTML = "";
+        const lower = filter.toLowerCase();
+        for (let sec of sections) {
+            if (sec.type === "simple") {
+                let filtered = sec.items.filter(name => !lower || name.toLowerCase().includes(lower));
+                if (filtered.length === 0) continue;
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'equip-section';
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'section-title';
+                titleDiv.innerHTML = `<span>⚜️ ${sec.title}</span><span class="collapse-icon">▼</span>`;
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'section-content';
+                const listDiv = document.createElement('div');
+                listDiv.className = 'item-list';
+                filtered.forEach(name => listDiv.appendChild(createEquipCard(name)));
+                contentDiv.appendChild(listDiv);
+                sectionDiv.appendChild(titleDiv);
+                sectionDiv.appendChild(contentDiv);
+                grid.appendChild(sectionDiv);
+                let collapsed = false;
+                titleDiv.onclick = () => {
+                    collapsed = !collapsed;
+                    contentDiv.style.display = collapsed ? 'none' : 'block';
+                    titleDiv.querySelector('.collapse-icon').innerHTML = collapsed ? '▶' : '▼';
+                };
+            } else if (sec.type === "group") {
+                let hasAny = false;
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'equip-section';
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'section-title';
+                titleDiv.innerHTML = `<span>⚜️ ${sec.title}</span><span class="collapse-icon">▼</span>`;
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'section-content';
+                for (let group of sec.groups) {
+                    let filtered = group.items.filter(name => !lower || name.toLowerCase().includes(lower));
+                    if (filtered.length > 0) {
+                        hasAny = true;
+                        const subDiv = document.createElement('div');
+                        subDiv.className = 'subgroup';
+                        subDiv.innerHTML = `<div class="subgroup-title">📁 ${group.title}</div>`;
+                        const listDiv = document.createElement('div');
+                        listDiv.className = 'item-list';
+                        filtered.forEach(name => listDiv.appendChild(createEquipCard(name)));
+                        subDiv.appendChild(listDiv);
+                        contentDiv.appendChild(subDiv);
+                    }
+                }
+                if (hasAny) {
+                    sectionDiv.appendChild(titleDiv);
+                    sectionDiv.appendChild(contentDiv);
+                    grid.appendChild(sectionDiv);
+                    let collapsed = false;
+                    titleDiv.onclick = () => {
+                        collapsed = !collapsed;
+                        contentDiv.style.display = collapsed ? 'none' : 'block';
+                        titleDiv.querySelector('.collapse-icon').innerHTML = collapsed ? '▶' : '▼';
+                    };
+                }
+            } else if (sec.type === "bossGroup") {
+                let hasAny = false;
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'equip-section';
+                const titleDiv = document.createElement('div');
+                titleDiv.className = 'section-title';
+                titleDiv.innerHTML = `<span>⚜️ ${sec.title}</span><span class="collapse-icon">▼</span>`;
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'section-content';
+                for (let group of sec.groups) {
+                    let filtered = group.items.filter(name => !lower || name.toLowerCase().includes(lower));
+                    if (filtered.length > 0) {
+                        hasAny = true;
+                        const subDiv = document.createElement('div');
+                        subDiv.className = 'subgroup';
+                        subDiv.innerHTML = `<div class="subgroup-title">📁 ${group.title}</div>`;
+                        const listDiv = document.createElement('div');
+                        listDiv.className = 'item-list';
+                        filtered.forEach(name => listDiv.appendChild(createEquipCard(name)));
+                        subDiv.appendChild(listDiv);
+                        contentDiv.appendChild(subDiv);
+                    }
+                }
+                if (hasAny) {
+                    sectionDiv.appendChild(titleDiv);
+                    sectionDiv.appendChild(contentDiv);
+                    grid.appendChild(sectionDiv);
+                    let collapsed = false;
+                    titleDiv.onclick = () => {
+                        collapsed = !collapsed;
+                        contentDiv.style.display = collapsed ? 'none' : 'block';
+                        titleDiv.querySelector('.collapse-icon').innerHTML = collapsed ? '▶' : '▼';
+                    };
+                }
+            }
+        }
+        if (grid.children.length === 0) grid.innerHTML = `<div class="equip-section"><div class="section-title">🔍 未找到相关装备</div></div>`;
+    }
+
+    document.getElementById('equipSearch')?.addEventListener('input', e => renderEquip(e.target.value));
+    renderEquip();
+
+    // ===================== 宠物合成数据 (完整保留) =====================
+    const noteData = {
+        newland: { title: "🌍 新大陆宠物", pets: ["毒喃鼠","鸭嘴龟","慕斯幽","偷桃的小猴","§石阵巨人§","K歌仙人掌","暗夜咻豹","悟不空","正太木乃伊","魔法女生","僵尸叔叔","丘比特","木马骑士","唱片机小兔","小狸猫","狂怒鹰","单车狮子王","飞天猪","鸭子","无辜小鹿","福尔摩狮","女法师琳达","腐尸鸟","地狱火魔兽"] },
+        tier10: { title: "🔥 10阶宠", pets: ["兽王神","金龙霸王","小青龙琅琅","冰龙苍海","艾薇儿","天界玉兔","三尾忍忍","仙狐六尾","天狐莫姬","炎龙血焰","黄龙莫虚","天蚁","青龙琅琅","月饼大仙","冰雪鸟"] },
+        high: { title: "✨ 高阶宠", pets: ["恶魔波姆","黄金鸟教皇","兽王","梦魇","天使波姆","梦幻猫","火灵猴","狐仙莫莫","玛雅","战神兔","天羽圣马","月亮兔","中山狼","小幽灵欧姆","爱莉雅","赤爪青鸾","圣诞冰波姆","调皮的雪孩子","圣诞麋鹿","寄居蟹"] },
+        sea: { title: "🌊 海底宠", pets: ["金鱼","海马","小玄武"] }
+    };
+
+    const ccDataList = [
+        ["K歌仙人掌", "10阶宠/新大陆宠（除僵尸叔叔、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "K歌仙人掌", "K歌仙人掌"],
+        ["僵尸叔叔", "10阶宠/新大陆宠（除腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "僵尸叔叔", "僵尸叔叔"],
+        ["悟不空", "10阶宠/新大陆宠（除魔法女生、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "悟不空", "悟不空"],
+        ["魔法女生", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "魔法女生", "魔法女生"],
+        ["§石阵巨人§", "10阶宠/新大陆宠（除K歌仙人掌、暗夜咻豹、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "§石阵巨人§", "§石阵巨人§"],
+        ["暗夜咻豹", "10阶宠/新大陆宠（除女法师琳达、僵尸叔叔、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "暗夜咻豹", "暗夜咻豹"],
+        ["女法师琳达", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "女法师琳达", "女法师琳达"]
+    ];
+
+    const wuxingData = [
+        ["金波姆","任意波姆","波光姆","金波姆王",""],["绿波姆","任意波姆","波碧姆","绿波姆王",""],
+        ["水波姆","任意波姆","波波姆","水波姆王",""],["火波姆","任意波姆","波纳姆","火波姆王",""],
+        ["土波姆","任意波姆","波岩姆","土波姆王",""],["波光姆","任意波姆","金波姆王","金光鼠",""],
+        ["波碧姆","任意波姆","绿波姆王","碧蟾",""],["波波姆","任意波姆","水波姆王","水仙",""],
+        ["波纳姆","任意波姆","火波姆王","火芒",""],["波岩姆","任意波姆","土波姆王","魔岩卵",""],
+        ["金波姆王","任意波姆","金光鼠","雷光鼠",""],["绿波姆王","任意波姆","碧蟾","老爷蛙",""],
+        ["水波姆王","任意波姆","水仙","雪芙",""],["火波姆王","任意波姆","火芒","吸血蚊",""],
+        ["土波姆王","任意波姆","魔岩卵","黑蚁",""],["黄金鸟","任意波姆","金光鼠","黄金独角兽",""],
+        ["金光鼠","任意波姆","雷光鼠","雷炎鼠",""],["碧蟾","任意波姆","老爷蛙","紫冥蟾",""],
+        ["水仙","任意波姆","雪芙","冰露",""],["火芒","任意波姆","吸血蚊","血炎兽",""],
+        ["魔岩卵","任意波姆","黑蚁","蚂蚁守卫",""],["雷光鼠","任意波姆","光驹","雷炎鼠",""],
+        ["光驹","任意波姆","雷光鼠","黄金独角兽",""],["老爷蛙","任意波姆","弹簧蛇","紫冥蟾",""],
+        ["弹簧蛇","任意波姆","老爷蛙","紫木蝎",""],["雪芙","任意波姆","冰石机","冰露",""],
+        ["吸血蚊","任意波姆","火龙蛋","赤锦",""],["黑蚁","任意波姆","黑蚁","水晶圣甲虫",""],
+        ["雷炎鼠","任意波姆","流氓奶牛","黄金蝙蝠",""],["黄金独角兽","任意波姆","流氓奶牛","紫貘",""],
+        ["紫冥蟾","任意波姆","紫木蝎","贪食蛇",""],["紫木蝎","任意波姆","紫冥蟾","贪食蛇",""],
+        ["冰露","任意波姆","仙宫玉兔","雪蝶兽",""],["赌博鼠","任意波姆","血炎兽","猞猁猫",""],
+        ["血炎兽","任意波姆","赌博鼠","火羽",""],["赤锦","任意波姆","赌博鼠","赤爪青鸾",""],
+        ["蚂蚁守卫","任意波姆","香蕉猴","岩兽人",""],["波姆兔","任意波姆","波姆兔王","月亮兔",""],
+        ["香蕉猴","任意波姆","水晶圣甲虫","岩兽人",""],["水晶圣甲虫","任意波姆","蚂蚁守卫","波姆兔",""],
+        ["仙宫玉兔","任意波姆","香蕉猴","波姆兔王",""],["流氓奶牛","任意波姆","黄金独角兽","紫貘",""],
+        ["紫貘","任意波姆","黄金蝙蝠","圣洁独角兽",""],["化蛇王","任意波姆","青龙兽","青蛟",""],
+        ["贪食蛇","任意波姆","化蛇王","青龙兽",""],["雪蝶兽","任意波姆","飞羽龟","梦幻猫",""],
+        ["寄居蟹","任意波姆","雪蝶兽","飞羽龟",""],["赤爪青鸾","任意波姆","猞猁猫","火焰蝙蝠",""],
+        ["火羽","任意波姆","火焰蝙蝠","火灵猴",""],["猞猁猫","任意波姆","赤爪青鸾","火焰蝙蝠",""],
+        ["波姆兔王","任意波姆","月亮兔","战神兔",""],["岩兽人","任意波姆","波姆兔王","中山狼",""],
+        ["黄金蝙蝠","任意波姆","紫貘","圣洁独角兽",""],["圣洁独角兽","任意波姆","圣羽天马","恶魔波姆",""],
+        ["青龙兽","任意波姆","花叶童子","青蛟",""],["恶魔鸟","任意波姆","青龙兽","梦魇",""],
+        ["花叶童子","任意波姆","恶魔鸟","梦魇",""],["爱莉丝","任意波姆","爱莉雅","艾薇儿",""],
+        ["火焰蝙蝠","任意波姆","火岩兽","火灵猴",""],["月亮兔","任意波姆","中山狼","战神兔",""],
+        ["中山狼","任意波姆","月亮兔","玛雅",""],["圣羽天马","任意波姆","黄金鸟教皇","金龙霸王",""],
+        ["黄金鸟教皇","任意波姆","恶魔波姆","金龙霸王",""],["青蛟","任意波姆","小青龙琅琅","青龙琅琅",""],
+        ["梦魇","任意波姆","青蛟","青龙琅琅",""],["天使波姆","任意波姆","梦幻猫","艾薇儿",""],
+        ["梦幻猫","任意波姆","天使波姆","艾薇儿",""],["火灵猴","任意波姆","狐仙莫莫","三尾忍忍",""],
+        ["狐仙莫莫","任意波姆","火灵猴","仙狐六尾",""],["战神兔","任意波姆","玛雅","黄龙莫虚",""],
+        ["玛雅","任意波姆","战神兔","黄龙莫虚",""],["恶魔波姆","任意波姆","圣羽天马","金龙霸王",""],
+        ["月饼大仙","任意波姆","金龙霸王","金龙霸王",""],["三尾忍忍","任意波姆","仙狐六尾","仙狐六尾",""],
+        ["仙狐六尾","任意波姆","天狐莫姬","天狐莫姬",""],["艾薇儿","任意波姆","冰龙苍海","冰龙苍海",""],
+        ["小青龙琅琅","金波姆","青龙琅琅","金龙霸王",""],["小青龙琅琅","任意波姆（除金波姆）","青龙琅琅","青龙琅琅",""],
+        ["天界玉兔","任意波姆","冰龙苍海","冰龙苍海",""],["金龙霸王","任意波姆","冰龙苍海","金龙霸王",""],
+        ["青龙琅琅","任意波姆","炎龙血焰","炎龙血焰",""],["冰龙苍海","任意波姆","青龙琅琅","青龙琅琅",""],
+        ["炎龙血焰","任意波姆","黄龙莫虚","黄龙莫虚",""],["黄龙莫虚","任意波姆","金龙霸王","金龙霸王",""],
+        ["调皮的雪孩子","圣诞冰波姆","圣诞麋鹿","圣诞麋鹿",""],["圣诞冰波姆","圣诞冰波姆","圣诞冰波姆","寄居蟹",""],
+        ["爱莉雅","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","调皮的雪孩子","调皮的雪孩子",""],
+        ["圣诞冰波姆","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","圣诞冰波姆","调皮的雪孩子",""],
+        ["天蚁","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","兽王神","天界玉兔",""],
+        ["天狐莫姬","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","天狐莫姬","冰雪鸟",""],
+        ["无辜小鹿","僵尸叔叔/丘比特/木马骑士/唱片机小兔","圣诞麋鹿","圣诞麋鹿",""]
+    ];
+
+    const templeMainData = [
+        ["K歌仙人掌","僵尸叔叔","K歌仙人掌","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
+        ["悟不空","魔法女生","悟不空","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
+        ["§石阵巨人§","暗夜咻豹","§石阵巨人§","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
+        ["K歌仙人掌","正太木乃伊","K歌仙人掌","★忍者小乌龟★","主宠成长>=80,副宠成长>=60"],
+        ["暗夜咻豹","女法师琳达","暗夜咻豹","★囧娃娃★","主宠成长>=80,副宠成长>=60"],
+        ["暗夜咻豹","僵尸叔叔","暗夜咻豹","★四叶草宝宝★","主宠成长>=80,副宠成长>=60"],
+        ["悟不空","正太木乃伊","悟不空","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],
+        ["§石阵巨人§","K歌仙人掌","§石阵巨人§","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],
+        ["★GM鸭子★","★龙蛇玄武★","☆GM鸭子☆","☆GM鸭子☆","主宠成长>=1,副宠成长>=200"],
+        ["★蜡笔MM★","★龙蛇玄武★","☆蜡笔MM☆","☆蜡笔MM☆","主宠成长>=1,副宠成长>=200"],
+        ["★忍者小乌龟★","★龙蛇玄武★","☆忍者小乌龟☆","☆忍者小乌龟☆","主宠成长>=1,副宠成长>=200"],
+        ["★囧娃娃★","★龙蛇玄武★","☆囧娃娃☆","☆囧娃娃☆","主宠成长>=1,副宠成长>=200"],
+        ["★四叶草宝宝★","★龙蛇玄武★","☆四叶草宝宝☆","☆四叶草宝宝☆","主宠成长>=1,副宠成长>=200"]
+    ];
+
+    const acquireData = [
+        ["福尔摩狮","火焰蝙蝠/火羽/岩兽人","福尔摩狮","悟不空",""],["女法师琳达","火焰蝙蝠/火羽/岩兽人","女法师琳达","悟不空",""],
+        ["偷桃的小猴","火焰蝙蝠/火羽/岩兽人","偷桃的小猴","悟不空",""],["飞天猪","火焰蝙蝠/雪蝶兽/岩兽人","飞天猪","§石阵巨人§",""],
+        ["鸭子","火焰蝙蝠/雪蝶兽/岩兽人","鸭子","§石阵巨人§",""],["小狸猫","火焰蝙蝠/雪蝶兽/岩兽人","小狸猫","§石阵巨人§",""],
+        ["无辜小鹿","中山狼/猞猁猫/化蛇王","无辜小鹿","K歌仙人掌",""],["狂怒鹰","中山狼/猞猁猫/化蛇王","狂怒鹰","K歌仙人掌",""],
+        ["单车狮子王","中山狼/猞猁猫/化蛇王","单车狮子王","K歌仙人掌",""],["毒喃鼠","花叶童子/紫貘/火羽","毒喃鼠","暗夜咻豹",""],
+        ["鸭嘴龟","花叶童子/紫貘/火羽","鸭嘴龟","暗夜咻豹",""],["慕斯幽","花叶童子/紫貘/火羽","慕斯幽","暗夜咻豹",""]
+    ];
+
+    const ultimateData = [
+        ["青龙琅琅","木★艾比","炎龙血焰","狻猊",""],["金龙霸王","金★阿莲娜","冰龙苍海","许德拉",""],
+        ["冰龙苍海","水★佑碧","炎龙血焰","齐伦",""],["炎龙血焰","火★西西","黄龙莫虚","艾尔斯",""],
+        ["黄龙莫虚","土★巴特","金龙霸王","剑蛇君",""],["金★阿莲娜","金龙霸王","金★阿莲娜","★阿莲娜★",""],
+        ["木★艾比","青龙琅琅","木★艾比","★艾比★",""],["水★佑碧","冰龙苍海","水★佑碧","★佑碧★",""],
+        ["火★西西","炎龙血焰","火★西西","★西西★",""],["土★巴特","黄龙莫虚","土★巴特","★巴特★",""]
+    ];
+
+    const hunicuData = [["单车狮子王","兽王神","单车狮子王","虎妞","主宠成长>=100,副宠成长>=10"]];
+    const hunicuCcData = [["单车狮子王","10阶宠（除兽王神）/海底宠/高阶宠（除天羽圣马）/小狸猫/狂怒鹰/单车狮子王/飞天猪/鸭子/无辜小鹿/青蛟","单车狮子王","单车狮子王"]];
+    const baihuData = [["兽王神","10阶宠","金龙霸王","白虎",""]];
+    const xiaoshenlongData = [["五系龙","10阶宠/新大陆宠","五系龙","小神龙琅玡",""]];
+    const shenyuanData = [["腐尸鸟","地狱火魔兽","腐尸鸟","深渊魔童",""],["地狱火魔兽","腐尸鸟","地狱火魔兽","深渊魔童",""]];
+    const huaxianziData = [["花仙子·幻","花仙子·幻","花仙子·幻","花仙子",""]];
+    const xiangnaierData = [["香奈儿","香奈儿","香奈儿","女巫香奈儿",""]];
+    const xiaoshenmaoData = [["小红帽","金龙霸王","小神帽","小神帽",""]];
+    const huoshenhouData = [["火灵猴","偷桃的小猴","火神猴","火神猴","主宠成长>=60,副宠成长>=100"]];
+    const huoshenhouCcData = [["火波姆","小神龙琅玡","波纳姆","火波姆王"],["偷桃的小猴","10阶宠/高阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/青蛟","偷桃的小猴","偷桃的小猴"]];
+
+    const waltzData = [["★龙蛇玄武★","华尔兹","真·华尔兹","真·华尔兹","主宠成长>=500,副宠成长>=1"]];
+    const xuanyuanData = [["小玄武","小玄武/10阶宠（除冰雪鸟）/新大陆宠（除偷桃的小猴、女法师琳达、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","★龙蛇玄武★",""]];
+    const xiaoxuanwuData = [
+        ["海马","金鱼/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],
+        ["金鱼","海马/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],
+        ["天蚁","圣诞麋鹿","天蚁","小玄武",""]
+    ];
+    const xiaoxuanwuCcData = [
+        ["小玄武","海马/金鱼/高阶宠（除战神兔、天羽圣马）","小玄武","小玄武"],
+        ["金鱼","金鱼/高阶宠（除天羽圣马、圣诞麋鹿）","金鱼","金鱼"],
+        ["海马","海马/高阶宠（除天羽圣马、圣诞麋鹿）","海马","海马"]
+    ];
+
+    // 浮动弹窗
+    const floatingNote = document.getElementById('floatingNote');
+    const ccFloating = document.getElementById('ccFloating');
+    const otherCcFloating = document.getElementById('otherCcFloating');
+    const seaCcFloating = document.getElementById('seaCcFloating');
+    const noteTitle = document.getElementById('noteTitle');
+    const noteList = document.getElementById('noteList');
+    let hideTimeout = null;
+
+    document.querySelectorAll('.note-trigger').forEach(trigger => {
+        trigger.addEventListener('mouseenter', () => {
+            if (hideTimeout) clearTimeout(hideTimeout);
+            const type = trigger.dataset.note;
+            const data = noteData[type];
+            if (data) {
+                noteTitle.textContent = data.title;
+                noteList.innerHTML = data.pets.map(p => `<li>${p}</li>`).join('');
+                floatingNote.style.display = 'block';
+            }
+        });
+        trigger.addEventListener('mouseleave', () => { hideTimeout = setTimeout(() => { floatingNote.style.display = 'none'; }, 200); });
+    });
+    floatingNote.addEventListener('mouseenter', () => { if (hideTimeout) clearTimeout(hideTimeout); floatingNote.style.display = 'block'; });
+    floatingNote.addEventListener('mouseleave', () => { floatingNote.style.display = 'none'; });
+
+    function showCcPopup() {
+        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></tr>';
+        ccDataList.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
+        html += '</table>';
+        document.getElementById('ccContent').innerHTML = html;
+        ccFloating.style.display = 'block';
+    }
+    function hideCcPopup() { ccFloating.style.display = 'none'; }
+    function showOtherCcPopup() {
+        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></tr>';
+        hunicuCcData.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
+        huoshenhouCcData.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
+        html += '</table>';
+        document.getElementById('otherCcContent').innerHTML = html;
+        otherCcFloating.style.display = 'block';
+    }
+    function hideOtherCcPopup() { otherCcFloating.style.display = 'none'; }
+    function showSeaCcPopup() {
+        let html = '<table style="width:100%; border-collapse:collapse; font-size:0.75rem;"><tr style="background:#4a3a2a;"><th style="padding:6px;">主宠</th><th style="padding:6px;">副宠条件</th><th style="padding:6px;">普通</th><th style="padding:6px;">稀有</th></tr>';
+        xiaoxuanwuCcData.forEach(r => { html += `<tr><td style="padding:6px;">${r[0]}</td><td style="padding:6px;">${r[1]}</td><td style="padding:6px;">${r[2]}</td><td style="padding:6px;">${r[3]}</td></tr>`; });
+        html += '</table>';
+        document.getElementById('seaCcContent').innerHTML = html;
+        seaCcFloating.style.display = 'block';
+    }
+    function hideSeaCcPopup() { seaCcFloating.style.display = 'none'; }
+
+    ccFloating.addEventListener('mouseenter', () => { if (window.ccHide) clearTimeout(window.ccHide); ccFloating.style.display = 'block'; });
+    ccFloating.addEventListener('mouseleave', hideCcPopup);
+    otherCcFloating.addEventListener('mouseenter', () => { if (window.otherHide) clearTimeout(window.otherHide); otherCcFloating.style.display = 'block'; });
+    otherCcFloating.addEventListener('mouseleave', hideOtherCcPopup);
+    seaCcFloating.addEventListener('mouseenter', () => { if (window.seaHide) clearTimeout(window.seaHide); seaCcFloating.style.display = 'block'; });
+    seaCcFloating.addEventListener('mouseleave', hideSeaCcPopup);
+
+    // 渲染合成表格（统一使用正确的列数）
+    function renderTable(title, data, columns, filterLower) {
+        if (!data.length) return '';
+        const filtered = filterLower ? data.filter(row => row.some(cell => cell && cell.toLowerCase().includes(filterLower))) : data;
+        if (filtered.length === 0) return '';
+        return `<div class="pet-section">
+            <div class="section-header"><span>🔮 ${title} <span style="font-size:0.7rem;">${filtered.length}条</span></span><span class="collapse-icon">▼</span></div>
+            <div class="section-content">
+                <table class="pet-table"><thead><tr>${columns.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+                <tbody>${filtered.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}</tbody>
+                </table>
+            </div></div>`;
+    }
+
+    function renderPets(filter = "") {
+        const container = document.getElementById('petContainer');
+        if (!container) return;
+        const lower = filter.trim().toLowerCase();
+
+        let html = '';
+        html += renderTable("五行宠物", wuxingData, ["主宠", "副宠", "普通", "稀有", "备注"], lower);
+        
+        // 圣殿宠物 + 获取途径
+        let filteredMain = lower ? templeMainData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : templeMainData;
+        let filteredAcquire = lower ? acquireData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : acquireData;
+        if (filteredMain.length || filteredAcquire.length) {
+            let templeHtml = '<div class="pet-section"><div class="section-header"><span>🔮 圣殿宠物 <span class="cc-trigger" id="ccTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + (filteredMain.length + filteredAcquire.length) + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
+            if (filteredMain.length) {
+                templeHtml += '<table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
+                    filteredMain.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table>';
+            }
+            if (filteredAcquire.length) {
+                templeHtml += '<div class="divider"></div><div class="subgroup"><div class="subgroup-title">📋 获取途径（悟不空、§石阵巨人§、K歌仙人掌、暗夜咻豹）</div>' +
+                    '<table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredAcquire.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            templeHtml += '</div></div>';
+            html += templeHtml;
+        }
+        
+        html += renderTable("五系终极", ultimateData, ["主宠", "副宠", "普通", "稀有", "备注"], lower);
+        
+        // 海底神宠 (三个子表)
+        let filteredWaltz = lower ? waltzData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : waltzData;
+        let filteredXuanyuan = lower ? xuanyuanData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xuanyuanData;
+        let filteredXiaoxuanwu = lower ? xiaoxuanwuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiaoxuanwuData;
+        if (filteredWaltz.length || filteredXuanyuan.length || filteredXiaoxuanwu.length) {
+            let seaHtml = '<div class="pet-section"><div class="section-header"><span>🔮 海底神宠 <span class="cc-trigger" id="seaCcTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + (filteredWaltz.length + filteredXuanyuan.length + filteredXiaoxuanwu.length) + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
+            if (filteredWaltz.length) {
+                seaHtml += '<div class="subgroup"><div class="subgroup-title">真·华尔兹</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
+                    filteredWaltz.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredXuanyuan.length) {
+                seaHtml += '<div class="subgroup"><div class="subgroup-title">★龙蛇玄武★</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredXuanyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredXiaoxuanwu.length) {
+                seaHtml += '<div class="subgroup"><div class="subgroup-title">小玄武</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredXiaoxuanwu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            seaHtml += '</div></div>';
+            html += seaHtml;
+        }
+        
+        // 其他神宠
+        let filteredHunicu = lower ? hunicuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : hunicuData;
+        let filteredBaihu = lower ? baihuData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : baihuData;
+        let filteredXiaoshenlong = lower ? xiaoshenlongData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiaoshenlongData;
+        let filteredShenyuan = lower ? shenyuanData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : shenyuanData;
+        let filteredHuaxianzi = lower ? huaxianziData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : huaxianziData;
+        let filteredXiangnaier = lower ? xiangnaierData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiangnaierData;
+        let filteredXiaoshenmao = lower ? xiaoshenmaoData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : xiaoshenmaoData;
+        let filteredHuoshenhou = lower ? huoshenhouData.filter(row => row.some(c => c && c.toLowerCase().includes(lower))) : huoshenhouData;
+        let otherTotal = filteredHunicu.length + filteredBaihu.length + filteredXiaoshenlong.length + filteredShenyuan.length + filteredHuaxianzi.length + filteredXiangnaier.length + filteredXiaoshenmao.length + filteredHuoshenhou.length;
+        
+        if (otherTotal > 0) {
+            let otherHtml = '<div class="pet-section"><div class="section-header"><span>🔮 其他神宠 <span class="cc-trigger" id="otherCcTrigger" style="margin-left:12px;">📖 刷CC途径</span><span style="font-size:0.7rem; margin-left:12px;">' + otherTotal + '条</span></span><span class="collapse-icon">▼</span></div><div class="section-content">';
+            if (filteredHunicu.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">虎妞</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
+                    filteredHunicu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredBaihu.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">白虎</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredBaihu.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredXiaoshenlong.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">小神龙琅玡</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredXiaoshenlong.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredShenyuan.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">深渊魔童</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredShenyuan.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredHuaxianzi.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">花仙子</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredHuaxianzi.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredXiangnaier.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">香奈儿</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredXiangnaier.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredXiaoshenmao.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">小神帽</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>备注</th></tr></thead><tbody>' +
+                    filteredXiaoshenmao.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            if (filteredHuoshenhou.length) {
+                otherHtml += '<div class="subgroup"><div class="subgroup-title">火神猴</div><table class="pet-table"><thead><tr><th>主宠</th><th>副宠</th><th>普通</th><th>稀有</th><th>条件</th></tr></thead><tbody>' +
+                    filteredHuoshenhou.map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('') + '</tbody></table></div>';
+            }
+            otherHtml += '</div></div>';
+            html += otherHtml;
+        }
+        
+        if (!html) html = '<div class="pet-section"><div class="section-header">🔍 未找到相关宠物</div></div>';
+        container.innerHTML = html;
+        
+        // 折叠功能
+        document.querySelectorAll('#petContainer .pet-section .section-header').forEach(header => {
+            const content = header.parentElement.querySelector('.section-content');
+            const icon = header.querySelector('.collapse-icon');
+            if (content && icon) {
+                let collapsed = content.classList.contains('collapsed');
+                icon.innerHTML = collapsed ? '▶' : '▼';
+                header.onclick = (e) => {
+                    if (e.target.classList.contains('cc-trigger')) return;
+                    collapsed = !collapsed;
+                    if (collapsed) { content.classList.add('collapsed'); icon.innerHTML = '▶'; }
+                    else { content.classList.remove('collapsed'); icon.innerHTML = '▼'; }
+                };
+            }
+        });
+        
+        const ccTrig = document.getElementById('ccTrigger');
+        if (ccTrig) { ccTrig.onmouseenter = showCcPopup; ccTrig.onmouseleave = hideCcPopup; }
+        const otherTrig = document.getElementById('otherCcTrigger');
+        if (otherTrig) { otherTrig.onmouseenter = showOtherCcPopup; otherTrig.onmouseleave = hideOtherCcPopup; }
+        const seaTrig = document.getElementById('seaCcTrigger');
+        if (seaTrig) { seaTrig.onmouseenter = showSeaCcPopup; seaTrig.onmouseleave = hideSeaCcPopup; }
+    }
+
+    document.getElementById('petSearch')?.addEventListener('input', e => renderPets(e.target.value));
+    renderPets();
+
+    // 宠物内部子标签切换
+    const synthPanel = document.getElementById('synthesizePanel');
+    const evolutionPanel = document.getElementById('evolutionPanel');
+    const petSubBtns = document.querySelectorAll('.pet-sub-btn');
+    function switchPetSub(subType) {
+        if (subType === 'synthesize') { synthPanel.classList.add('active'); evolutionPanel.classList.remove('active'); }
+        else { synthPanel.classList.remove('active'); evolutionPanel.classList.add('active'); }
+        petSubBtns.forEach(btn => { if (btn.dataset.sub === subType) btn.classList.add('active'); else btn.classList.remove('active'); });
+    }
+    petSubBtns.forEach(btn => { btn.addEventListener('click', () => { switchPetSub(btn.dataset.sub); }); });
+
+    // 顶层标签切换
+    const equipTab = document.getElementById('equipTab');
+    const petTab = document.getElementById('petTab');
+    const mainBtns = document.querySelectorAll('.tab-btn');
+    const dropToast = document.getElementById('dropToast');
+    mainBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            mainBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            equipTab.classList.remove('active');
+            petTab.classList.remove('active');
+            if (btn.dataset.tab === 'equip') {
+                equipTab.classList.add('active');
+                if (dropToast) dropToast.style.display = 'block';
+            } else {
+                petTab.classList.add('active');
+                if (dropToast) dropToast.style.display = 'none';
+                if (!synthPanel.classList.contains('active') && !evolutionPanel.classList.contains('active')) switchPetSub('synthesize');
+            }
+        });
+    });
+    switchPetSub('synthesize');
+})();
+</script>
+</body>
+</html>
