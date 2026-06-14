@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=1.5">
     <title>偷心服口袋精灵2 · 装备与宠物百科</title>
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/616/616491.png">
     <style>
@@ -34,12 +34,13 @@
             margin-bottom: 28px;
             border-bottom: 2px solid #f5dcac;
             padding-bottom: 8px;
+            flex-wrap: wrap;
         }
         .tab-btn {
             background: #fef5e4;
             border: none;
-            padding: 10px 32px;
-            font-size: 1.2rem;
+            padding: 10px 28px;
+            font-size: 1.15rem;
             font-weight: bold;
             border-radius: 40px;
             cursor: pointer;
@@ -58,15 +59,17 @@
         .tab-content.active {
             display: block;
         }
+
         /* 宠物内部子标签 */
-        .pet-sub-tabs {
+        .pet-sub-tabs, .sub-tabs {
             display: flex;
             gap: 12px;
             margin-bottom: 20px;
             border-bottom: 2px solid #f0d8b0;
             padding-bottom: 6px;
+            flex-wrap: wrap;
         }
-        .pet-sub-btn {
+        .pet-sub-btn, .sub-btn {
             background: #fef5e4;
             border: none;
             padding: 6px 28px;
@@ -78,16 +81,17 @@
             font-family: inherit;
             transition: 0.2s;
         }
-        .pet-sub-btn.active {
+        .pet-sub-btn.active, .sub-btn.active {
             background: #f5bc70;
             color: #2c2418;
         }
-        .pet-sub-pane {
+        .pet-sub-pane, .sub-pane {
             display: none;
         }
-        .pet-sub-pane.active {
+        .pet-sub-pane.active, .sub-pane.active {
             display: block;
         }
+
         h1 {
             text-align: center;
             font-size: 2.2rem;
@@ -151,15 +155,16 @@
             background: #ffda9e;
             transform: scale(1.02);
         }
+
         /* 装备样式 */
-        .equip-section {
+        .equip-section, .pet-section {
             background: #fffaf0;
             border-radius: 1.2rem;
             border: 1px solid #f5dcac;
             margin-bottom: 16px;
             overflow: hidden;
         }
-        .section-title {
+        .section-title, .section-header {
             background: #fff3e0;
             padding: 12px 20px;
             font-weight: bold;
@@ -171,7 +176,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        .section-title:hover {
+        .section-title:hover, .section-header:hover {
             background: #ffefcf;
         }
         .section-content {
@@ -212,37 +217,14 @@
             background: #ffe8c7;
             transform: translateY(-1px);
         }
-        /* 宠物样式 */
-        .pet-section {
-            background: #fffaf0;
-            border-radius: 1.2rem;
-            border: 1px solid #f5dcac;
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
-        .section-header {
-            background: #fff3e0;
-            padding: 12px 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #f5dcac;
-            color: #a46f2c;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .section-header:hover {
-            background: #ffefcf;
-        }
+
         .pet-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.75rem;
             table-layout: fixed;
         }
-        .pet-table th,
-        .pet-table td {
+        .pet-table th, .pet-table td {
             border: 1px solid #f0dbb4;
             padding: 6px 8px;
             text-align: left;
@@ -254,14 +236,13 @@
             background: #f5e8d0;
             font-weight: bold;
             color: #6b4c2a;
-            padding: 8px 8px;
         }
         .divider {
             height: 1px;
             background: #f5dcac;
             margin: 8px 0;
         }
-        /* 进化图鉴 - 垂直列表，图片一行一个，大图展示 */
+
         .evo-vertical-list {
             display: flex;
             flex-direction: column;
@@ -273,9 +254,7 @@
             border-radius: 1.5rem;
             border: 1px solid #f0cf94;
             overflow: hidden;
-            transition: all 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            width: 100%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .evo-title-vertical {
             background: #f5e2c1;
@@ -284,7 +263,6 @@
             font-size: 1.2rem;
             color: #8b5a2b;
             text-align: center;
-            letter-spacing: 2px;
             border-bottom: 1px solid #f0cf94;
         }
         .evo-img-vertical {
@@ -294,15 +272,9 @@
         }
         .evo-img-vertical img {
             max-width: 90%;
-            width: auto;
-            height: auto;
             border-radius: 20px;
             border: 2px solid #f0dbb4;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease;
-        }
-        .evo-img-vertical img:hover {
-            transform: scale(1.02);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
         .evo-note {
             background: #fef2e0;
@@ -313,6 +285,7 @@
             font-size: 0.8rem;
             color: #b87c3c;
         }
+
         .floating-note {
             position: fixed;
             top: 50%;
@@ -327,7 +300,7 @@
             z-index: 2000;
             display: none;
             border: 2px solid #f5bc70;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             color: #ffefcf;
             font-size: 0.85rem;
             pointer-events: none;
@@ -362,9 +335,6 @@
             margin-left: 12px;
             cursor: pointer;
         }
-        .cc-trigger:hover {
-            background: #f5bc70;
-        }
         .drop-toast {
             position: fixed;
             bottom: 30px;
@@ -380,28 +350,114 @@
             white-space: nowrap;
             font-weight: bold;
         }
-        @media (max-width: 700px) {
-            .pet-table th,
-            .pet-table td {
-                font-size: 0.65rem;
-                padding: 4px;
-            }
-            .floating-note {
-                width: 90%;
-                padding: 15px;
-            }
-            .note-trigger {
-                padding: 2px 8px;
-                font-size: 0.6rem;
-            }
-            .evo-img-vertical img {
-                max-width: 95%;
-            }
-            .evo-title-vertical {
-                font-size: 1rem;
-                padding: 10px;
-            }
+
+        /* 新手攻略样式 */
+        .guide-content {
+            background: #fffaf0;
+            border-radius: 1.2rem;
+            padding: 25px;
+            border: 1px solid #f5dcac;
+            line-height: 1.8;
         }
+        .guide-content h2 {
+            color: #a46f2c;
+            margin-bottom: 15px;
+        }
+        .guide-content h3 {
+            color: #c9922b;
+            margin: 25px 0 12px;
+            border-left: 5px solid #f5bc70;
+            padding-left: 15px;
+        }
+        .guide-content h4 {
+            color: #b87c3c;
+            margin: 20px 0 8px;
+        }
+        .guide-note {
+            background: #fef5e4;
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border: 1px dashed #f0cf94;
+        }
+        .guide-img {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .guide-img img {
+            max-width: 95%;
+            border-radius: 20px;
+            border: 2px solid #f0dbb4;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .guide-img .caption {
+            font-size: 0.9rem;
+            color: #b87c3c;
+            margin-top: 8px;
+        }
+        .faq-card {
+            background: #fffaf0;
+            border-radius: 1rem;
+            margin-bottom: 12px;
+            border: 1px solid #f5dcac;
+            overflow: hidden;
+        }
+        .faq-question {
+            background: #fff3e0;
+            padding: 15px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        .faq-answer {
+            padding: 15px 20px;
+            display: block;
+            border-top: 1px solid #f0dbb4;
+        }
+        .faq-tags {
+            margin-top: 10px;
+        }
+        .faq-tag {
+            background: #f5e2c1;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            margin-right: 6px;
+        }
+        .tag-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+            margin-top: 25px;
+        }
+        .tag-category {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tag-category-title {
+            font-weight: bold;
+            color: #a46f2c;
+        }
+        .tag {
+            background: #fef5e4;
+            padding: 4px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border: 1px solid #f0cf94;
+        }
+        .tag:hover { background: #f5bc70; }
+        .run-ring-group {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+        .faq-toolbar {
+            margin-bottom: 28px;
+        }
+
         footer {
             text-align: center;
             margin-top: 32px;
@@ -409,20 +465,24 @@
             border-top: 1px solid #f5dcac;
             padding-top: 16px;
         }
+        @media (max-width: 700px) {
+            .floating-note { width: 90%; padding: 15px; }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <h1>📖 偷心服口袋精灵2 · 百科全书</h1>
-    <div class="sub">✦ 装备掉落 | 宠物合成 + 五行进化 ✦</div>
+    <div class="sub">✦ 装备掉落 | 宠物合成 + 五行进化 · 新手攻略 ✦</div>
 
     <div class="tabs">
-        <button class="tab-btn active" data-tab="equip">⚔️ 装备图鉴</button>
+        <button class="tab-btn" data-tab="equip">⚔️ 装备图鉴</button>
         <button class="tab-btn" data-tab="pet">🐾 宠物图鉴</button>
+        <button class="tab-btn active" data-tab="newbie">🌱 新手攻略</button>
     </div>
 
     <!-- 装备图鉴 Tab -->
-    <div id="equipTab" class="tab-content active">
+    <div id="equipTab" class="tab-content">
         <div class="toolbar">
             <div class="search-box"><input type="text" id="equipSearch" placeholder="搜索装备..."></div>
         </div>
@@ -431,13 +491,10 @@
 
     <!-- 宠物图鉴 Tab -->
     <div id="petTab" class="tab-content">
-        <!-- 宠物内部子标签 -->
         <div class="pet-sub-tabs">
             <button class="pet-sub-btn active" data-sub="synthesize">🐣 合成图鉴</button>
             <button class="pet-sub-btn" data-sub="evolution">🌟 进化图鉴</button>
         </div>
-
-        <!-- 合成面板 -->
         <div id="synthesizePanel" class="pet-sub-pane active">
             <div class="toolbar">
                 <div class="search-box"><input type="text" id="petSearch" placeholder="搜索宠物..."></div>
@@ -450,55 +507,158 @@
             </div>
             <div id="petContainer"></div>
         </div>
-
-        <!-- 进化面板 (五行图片展示：改为一行一个，大图) -->
         <div id="evolutionPanel" class="pet-sub-pane">
             <div class="evo-vertical-list">
-                <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">金系进化路线</div>
-                    <div class="evo-img-vertical"><img src="金.png" alt="金系进化路线图"></div>
-                </div>
-                <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">木系进化路线</div>
-                    <div class="evo-img-vertical"><img src="木.png" alt="木系进化路线图"></div>
-                </div>
-                <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">水系进化路线</div>
-                    <div class="evo-img-vertical"><img src="水.png" alt="水系进化路线图"></div>
-                </div>
-                <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">火系进化路线</div>
-                    <div class="evo-img-vertical"><img src="火.png" alt="火系进化路线图"></div>
-                </div>
-                <div class="evo-card-vertical">
-                    <div class="evo-title-vertical">土系进化路线</div>
-                    <div class="evo-img-vertical"><img src="土.png" alt="土系进化路线图"></div>
-                </div>
+                <div class="evo-card-vertical"><div class="evo-title-vertical">金系进化路线</div><div class="evo-img-vertical"><img src="金.png" alt="金系进化路线图"></div></div>
+                <div class="evo-card-vertical"><div class="evo-title-vertical">木系进化路线</div><div class="evo-img-vertical"><img src="木.png" alt="木系进化路线图"></div></div>
+                <div class="evo-card-vertical"><div class="evo-title-vertical">水系进化路线</div><div class="evo-img-vertical"><img src="水.png" alt="水系进化路线图"></div></div>
+                <div class="evo-card-vertical"><div class="evo-title-vertical">火系进化路线</div><div class="evo-img-vertical"><img src="火.png" alt="火系进化路线图"></div></div>
+                <div class="evo-card-vertical"><div class="evo-title-vertical">土系进化路线</div><div class="evo-img-vertical"><img src="土.png" alt="土系进化路线图"></div></div>
             </div>
             <div class="evo-note">※ 五行进化路线图 (金·木·水·火·土) 图片展示，鼠标悬停可放大</div>
         </div>
     </div>
+
+    <!-- 新手攻略 Tab -->
+    <div id="newbieTab" class="tab-content active">
+        <div class="sub-tabs">
+            <button class="sub-btn active" data-sub="guide">📘 新手攻略</button>
+            <button class="sub-btn" data-sub="faq">❓ 常见问题</button>
+        </div>
+        <div id="guidePanel" class="sub-pane active">
+            <div class="guide-content">
+                <h2>《口袋精灵2》偷心服新手教程</h2>
+                <p style="text-align:right; color:#b87c3c;">文|御无双</p>
+                
+                <h3>1. 攻略开篇</h3>
+                <p>《口袋精灵2》本质上属于一款养成类游戏，“养”是核心玩法，“成”是爽点来源。那么，新手玩家应该如何少走弯路地“养”？如何尽快体验到合成神宠、战力飙升、图鉴收集、囤积奇货、开包出货、榜单登顶、社交陪伴等等个人“成”就感与爽点？</p>
+                <p>归根结底，在于厘清资源如何获取与转化。如果说养成是游戏的灵魂，那么资源的获取与转化，就是维系游玩体验的血液。笔者认为，偷心服最为出色之处，正在于对“资源血液”循环节奏的精准把控，恰当地保留了“收集—突破—再收集”的养成逻辑，玩家的养成曲线平稳向上，有效规避了养成类游戏长期为人诟病的几大问题（也是导致原作倒闭的问题）：例如，资源失控与数值膨胀、肝氪玩家游戏体验差距极大、长久性卡关造成的停滞与正反馈消散等等。因此，笔者在这里首先推荐一下偷心服，然后在下文详细介绍偷心服的资源获取与转化方式，并按照新手进入游戏的接触顺序进行展开。</p>
+                <p>当然，《口袋精灵2》可能没有真正意义上的新手玩家了，希望本作能带每一位新来的老玩家追寻到那段美好记忆与青春时光。</p>
+                
+                <h3>2. 资源获取与转化</h3>
+                <h4>2. 新手开荒</h4>
+                <p>首先明确新手玩家的几个重要阶段与节点目标：</p>
+                <p><strong>阶段一：完成新手任务，阶段目标是达到2000成长。</strong>玩家进入游戏后，可以在“活动任务”一栏领取到神宠&lt;魅娘&gt;与一套神装“情人恋”。前者是目前我们的核心培养对象，后者可以确保整个新手阶段的基本战力。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图1.png" alt="新手攻略图1">
+                    <div class="caption">图1 &lt;魅娘&gt;形象与战斗特效</div>
+                </div>
+                
+                <p>这一阶段建议先拜师（左侧“个人信息”第三列处），一是可以获得师傅的指导或资源，二是在“师徒任务”完成后可以获得丰厚奖励。拜师后，以完成新手任务为主。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图2.png" alt="新手攻略图2">
+                    <div class="caption">图2 拜师途径</div>
+                </div>
+                
+                <p>新手任务通常为杀怪要求，包括新手基地到海底世界的地图、旧大陆的副本。部分任务包含掉落物收集要求，完成相对困难。新手任务的核心奖励是成长果实，在完成整个新手任务后，成长果实总计能让&lt;魅娘&gt;提升至2000cc，配合装备足以秒过旧大陆所有图。（容易卡关的点：一是新手基地的粉尘收集，这个可以向老玩家索取，通常存货较多；二是在冰滩做海底钥匙的神秘收集物要求，几乎只有boss容易掉落，依靠自己刷图或者花费元宝、水晶向老玩家购买一部分。）</p>
+                <p>新手任务过程中，玩家会接触到第一个核心的资源收集方式：牧台挂机。牧台玩法将于2.2节详细介绍，新手玩家目前只需了解在&lt;魅娘&gt;提升至300cc后脱去装备放入牧场，并在神秘商店购买牧台许可证后，即可在牧台处选择让&lt;魅娘&gt;挂机的副本与时间。于此同时，可将装备给另一只副宠进行在线挂机，提升新手任务完成速度。初期副宠推荐小神龙琅玡来过渡，老玩家存货较多，初始cc也足够过图。</p>
+                <p>注意事项：刷到的装备不急着出售，可以在魔卡志的装备图鉴中选择收集，失去该装备同时获得0.3%的全属性加成。铁匠铺也可以购买1-20级的装备，用以补图鉴。</p>
+                <p>如果之前拜师了，那么达到130级后即可完成出师任务，实现一次资源的飞跃。利用任务赠送的修炼仙册，大约能升到100级，剩下的靠牧场托管、加速来升级。牧场托管时长可在神秘商店用水晶购买。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图3.png" alt="新手攻略图3">
+                    <div class="caption">图3 牧台挂机与牧场托管</div>
+                </div>
+
+                <p><strong>阶段二：培养一只专职挂机宠物，阶段目标是将神圣宠物提升至5阶500成长。</strong>游戏前期还是以提升战力，从而确保能刷图、做任务为主。完成新手任务后，我们的目标就是新大陆！我们要让战力足以秒杀菲拉苛、厄菲斯、阿尔提的boss，以及通过通天塔第30层。通常而言，这依靠提升cc、开图鉴、更换装备来实现。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图4.png" alt="新手攻略图4">
+                    <div class="caption">图4 新大陆</div>
+                </div>
+                
+                <p>在&lt;魅娘&gt;提升至2000cc后，后续提升cc的主要途径是涅槃与B进化，每次涅槃后可利用天仙玉露进化10次。涅槃材料通常为涅槃神丹、捏成丹（有时需加命中丹，命中的作用将在通天塔部分介绍），副宠默认为小神龙琅玡，每次涅槃与进化完成后，能大约提升9点cc。那么，如何获取上述材料呢？接下来，是玩家会接触到第二个核心的资源收集方式：跑环任务。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图5.png" alt="新手攻略图5">
+                    <div class="caption">图5 神宠涅槃与自动进化</div>
+                </div>
+                
+                <p>跑环是获取涅槃材料的主要渠道。跑环共分为3组，越往后难度越大，特别是新大陆副本此时只有&lt;魅娘&gt;能过。因此，前期依靠&lt;魅娘&gt;挂机、小神龙琅玡主战的方法将遇到瓶颈。为了一劳永逸地挂牧台，这里推荐先培养一只500cc的神圣宠物（300cc以上能挂机旧大陆，500cc以上能挂机新大陆）。参考以下方法，大约40个小神龙+残神就能达成500cc，是新手性价比最高、效率最快的途径。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图6.png" alt="新手攻略图6">
+                    <div class="caption">图6 跑环任务与奖励</div>
+                </div>
+                
+                <p>具体步骤如下：<br>
+                第一步，利用出师任务或活动任务奖励（经常有节日活动或长期活动可关注），以及摩天轮礼券、皇宫砸蛋券获取元宝、小神龙卵、恩赐之水道具（注：神圣宠物的等级只能通过任务经验、恩赐之水、牧场托管来提升，要注意保留；期间开出的神宠卵可以先保留）；<br>
+                第二步，在神秘商店购买玛雅宝宝卵并使用。由于4阶神圣宠物的cc上限只有100，因此我们至少要将玛雅宝宝转生至5阶（转生路线都一样），转生材料可在神秘商店获取，因此核心要求是满足转生所需的cc要求。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图7.png" alt="新手攻略图7">
+                    <div class="caption">图7 神圣宠物转生</div>
+                </div>
+                
+                <p>第三步，抽取神宠成长。神圣宠物的成长提升主要依靠提取神宠成长来实现。由于不同阶段、不同成长的神宠提升比例不同，这里推荐涅槃小神龙琅玡（60cc）+残神+涅槃兽=★青龙★，进而抽取青龙成长的方式实现。较为便宜的残神是深渊魔童，可通过僵尸鸟+地狱火魔兽=深渊魔童来合成，僵尸鸟、地狱火魔兽的卵可以找老玩家索要。其他涅槃公式可参考后续图鉴。<br>
+                神宠成长抽取方式如下：</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图8.png" alt="新手攻略图8">
+                    <div class="caption">图8 神宠成长抽取</div>
+                </div>
+                
+                <p>抽取道具建议选择2个贤者之石，可以在神秘商店购买。如果★青龙★的成长不足65，建议使用天仙玉露提升至65cc以上再进行抽取，可达到最大抽取比例。<br>
+                第四步，转化成长给玛雅宝宝，然后转生。成长抽取完成后，利用成长转化给玛雅宝宝，满足转生要求即可转生，超额的成长在前4阶几乎没有收益。转生道具在神秘商店可以买到，包括红莲之眼和神圣祝福。可以购买更便宜的红莲道具，因为前4阶的cc提升主要靠成长抽取与转化实现。不同转生路线差异不大，可自由选择。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图9.png" alt="新手攻略图9">
+                    <div class="caption">图9 神圣宠物5阶形象</div>
+                </div>
+
+                <p><strong>阶段三：通天塔30层，阶段目标是提升至3000成长、开收集图鉴。</strong>有了5阶神圣宠物在牧台日常挂机后，我们就可以用&lt;魅娘&gt;专心刷副本了，最常见的刷图副本是菲拉苛、通天塔。通天塔30层是重要门槛之一，决定了我们是否能接取跑环的最后一环，这提供了大量奖励。<br>
+                从提升战力的角度，这一阶段我们最经济的方法是在魔卡志开宠物图鉴和装备图鉴，然后是提升cc，最后是打造觉醒盛世套装。（注：如果你之前拜师并成功出师，那么在魔卡志可领取&lt;师徒情深&gt;的称号。）</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图10.png" alt="新手攻略图10">
+                    <div class="caption">图10 称号领取</div>
+                </div>
+                
+                <p>由于在阶段一，我们大概率已经收集了能收集的装备图鉴，再刻意收集其余装备的性价比不高，还是在日常跑环与挂机中收集即可。因此，重点介绍宠物图鉴收集。如下图所示，宠物图鉴也能提供大量的属性加成。</p>
+                
+                <div class="guide-img">
+                    <img src="https://github.com/ryojbcjgfcbnj-cpu/kdjl2/blob/main/新手攻略图11.png" alt="新手攻略图11">
+                    <div class="caption">图11 宠物图鉴加成</div>
+                </div>
+                
+                <p>宠物图鉴我们优先做基础的五系宠物。如果之前开出8阶、10阶宠物卵，可在此直接收集。收集的宠物需放在牧场，切忌不要收集掉你需要的宠物，因为和装备收集类似，宠物收集意味着对应的宠物消失。对于尚未开出的五系宠物，通常在新手基地抓取波姆的方式，进化或合成得到。（进化路线或合成公式在群文件中均有提供）<br>
+                其中，进化材料中的进化之书、低阶进化道具、部分高阶道具都可以通过道具商店购买、兑换任务来获取。通常而言，进化宝石是充裕的，如果高级进化书或超级进化书不足，可以问老玩家索取。对于热爱收集与合成的玩家，可以好好享受这一过程；想加快进度，则可以直接交易一些高阶的卵。<br>
+                对于之前可能开出的神宠卵，我们根据其专属任务奖励，决定是否要收集。通常而言，在不充裕的情况下，保留盛世宠物、自然女生、口袋女神，以及其他拥有专属装备的宠物。常见的具体整理如下：<br>
+                （1）口袋女神系列<br>魔法女神、阳光女神、秋千女神、人鱼女神、双子女神、莲花女神、凤凰女神、白虎女神、春风女神、铁骑女神、阳光女神<br>
+                （2）自然女神<br>神兽幽幽、古木精、终极斑、可可小魔、潜魔兽、科学怪人、猫女神、人头马将军、战翼魔神、蛇魔丝西娜<br>
+                （3）盛世宠物<br>黑王子、小不点、人鱼公主露欣、睡美人雅雅、香奈儿、草莓普拉朵、圣火麒麟、神宠萌萌、花仙子、兔啦花花<br>
+                （4）散神<br>紫伞妹：天使之魂<br>≮琉璃·狐仙≯：圣诞铃铛<br>≮金羽凤凰≯：金乌之羽<br>玉兔·莉尔、玉兔·菲儿：圣光套<br>k歌-霸王龙：K歌之王<br>蛋挞妹：守护印记<br>黑无常：恶魔之角（黑）<br>白无常：恶魔之角（白）<br>炽天使：天使之翼<br>雎鸠：尾生之泪<br>信.安吉：厄菲斯紫玉<br>神龙媚若：龙之神玉<br>兔儿啾啾：日曜头环<br>青影龙：影炎之书<br>熊猫orz：坠落星辰<br>赤牝鹿：月之守护<br>虎妞：血凝<br>幽蜚-R-01：机械套装<br>歌莉娅：红莲之怒<br>童童木：钢铁神臂</p>
+                <p>宠物图鉴和装备图鉴加成能到100%，并通过跑环积累的小神龙、涅槃兽、天仙玉露提升至3000cc后可以尝试挑战通天塔30层。如果还是不能通过，还可以提升技能等级进行尝试。之后基本可以舒服地收集、做任务啦！</p>
+
+                <div class="guide-note">
+                    <strong>Tips：</strong><br>
+                    （1）vip积分可通过成长转移礼包倒转，即如果能开出极品转移石、一品转移石，可以通过道具商店回收元宝，从而实现以小博大、杠杆效应。倒转有风险，赌博需谨慎！<br>
+                    （2）群里有节日活动、长期推广活动、抢红包活动等等，建议关注。<br>
+                    （3）盛世装备套可以通过金蛋砸出，因此追求快速提升战力的话，可以用元宝向老玩家购买。觉醒石在觉醒礼包中可开出（专属任务也可兑换觉醒石，但女神圣水较为珍贵，建议保留）。<br>
+                    （4）氪金找群主偷心，主要为定制和战令，见群文件。<br>
+                    （5）跑环0点刷新，如果没做完想重新做，要选择放弃跑环任务。<br>
+                    （6）新手装备定国系列别扔！记得收集。
+                </div>
+            </div>
+        </div>
+        <div id="faqPanel" class="sub-pane">
+            <div class="faq-toolbar">
+                <div class="search-box"><input type="text" id="faqSearchInput" placeholder="搜索问题或关键词..."></div>
+            </div>
+            <div class="tag-categories" id="tagCategories"></div>
+            <div class="faq-list" id="faqContainer"></div>
+        </div>
+    </div>
     <footer>御无双 著 | 数据基于偷心服版本</footer>
 </div>
-<div id="dropToast" class="drop-toast">✨ 点击装备查看掉落信息 ✨</div>
 
-<!-- 浮动弹窗 -->
-<div id="floatingNote" class="floating-note">
-    <h4 id="noteTitle">📋 宠物列表</h4>
-    <ul id="noteList"></ul>
-</div>
-<div id="ccFloating" class="floating-note" style="max-width: 650px;">
-    <h4>🔄 圣殿宠物刷CC途径</h4>
-    <div id="ccContent"></div>
-</div>
-<div id="otherCcFloating" class="floating-note" style="max-width: 650px;">
-    <h4>🔄 其他神宠刷CC途径</h4>
-    <div id="otherCcContent"></div>
-</div>
-<div id="seaCcFloating" class="floating-note" style="max-width: 650px;">
-    <h4>🔄 海底神宠刷CC途径</h4>
-    <div id="seaCcContent"></div>
-</div>
+<div id="dropToast" class="drop-toast">✨ 点击装备查看掉落信息 ✨</div>
+<div id="floatingNote" class="floating-note"><h4 id="noteTitle">📋 宠物列表</h4><ul id="noteList"></ul></div>
+<div id="ccFloating" class="floating-note" style="max-width:650px;"><h4>🔄 圣殿宠物刷CC途径</h4><div id="ccContent"></div></div>
+<div id="otherCcFloating" class="floating-note" style="max-width:650px;"><h4>🔄 其他神宠刷CC途径</h4><div id="otherCcContent"></div></div>
+<div id="seaCcFloating" class="floating-note" style="max-width:650px;"><h4>🔄 海底神宠刷CC途径</h4><div id="seaCcContent"></div></div>
 
 <script>
 (function() {
@@ -507,8 +667,6 @@
     function registerItem(name, mapStr, dropType, difficulty) {
         dropData.set(name, { map: mapStr, type: dropType, diff: difficulty });
     }
-
-    // BOSS装备
     ["黄金羽衣","黄金脚环","黄金利爪","黄金头饰","黄金羽翼"].forEach(i => registerItem(i, "新手基地", "BOSS掉落", "较难"));
     registerItem("兔神的魔咒", "潮汐海崖", "BOSS掉落", "极难");
     registerItem("兔神的祝福", "潮汐海崖", "BOSS掉落", "极难");
@@ -522,10 +680,7 @@
     registerItem("火神的炽血圣钻", "尤玛火山", "BOSS掉落", "极难");
     const demons = ["恶魔的魔神脚环","恶魔的刺甲黑鳞","恶魔的噬血镰刀","恶魔的毁灭指环","恶魔的魔咒黑角","恶魔的暗夜珠链"];
     demons.forEach(i => registerItem(i, "死亡沙漠、海市蜃楼", "BOSS掉落", "较难"));
-
     const elements = ["金","木","水","火","土"];
-
-    // 珠系列
     elements.forEach(e => registerItem(`(${e})水晶珠`, "新手基地", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})聚灵珠`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})噬血珠`, "黄金陵、炽热沙滩、尤玛火山", "小怪掉落", "普通"));
@@ -536,8 +691,6 @@
     const moshou = ["金刚之魔兽珠","神木之魔兽珠","水蕴之魔兽珠","火精之魔兽珠","厚土之魔兽珠"];
     tianmo.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
     moshou.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
-
-    // 铃铛系列
     elements.forEach(e => registerItem(`(${e})护身铃铛`, "新手基地", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})黄铜铃铛`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})碧金铃铛`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
@@ -548,8 +701,6 @@
     const jinyuBell = ["金刚之金羽铃铛","神木之金羽铃铛","水蕴之金羽铃铛","火精之金羽铃铛","厚土之金羽铃铛"];
     fengyangBell.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
     jinyuBell.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
-
-    // 护身系列
     elements.forEach(e => registerItem(`(${e})护身羽绒`, "新手基地", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})黄铜轻甲`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})碧金护身`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
@@ -560,8 +711,6 @@
     const jinyuBody = ["金刚之金羽护身","神木之金羽护身","水蕴之金羽护身","火精之金羽护身","厚土之金羽护身"];
     fengyangBody.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
     jinyuBody.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
-
-    // 脚环系列
     elements.forEach(e => registerItem(`(${e})护身脚环`, "新手基地", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})黄铜脚环`, "潮汐海崖、巨石山脉、黄金陵", "小怪掉落", "普通"));
     elements.forEach(e => registerItem(`(${e})碧金脚环`, "黄金陵、炽热沙滩", "小怪掉落", "普通"));
@@ -572,20 +721,13 @@
     const jinyuFoot = ["金刚之金羽脚环","神木之金羽脚环","水蕴之金羽脚环","火精之金羽脚环","厚土之金羽脚环"];
     fengyangFoot.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
     jinyuFoot.forEach(i => registerItem(i, "冰滩", "小怪掉落", "较难"));
-
-    // 项链指环
     const commonAll = "新手基地、妖精森林、潮汐海崖、巨石山脉、黄金陵、炽热沙滩、尤玛火山";
-    const commonHard = "黄金陵、炽热沙滩、尤玛火山";
     ["金星项链","金星指环","坚固项链","坚固指环","灵巧项链","灵巧指环","陨星项链","陨星指环","气血项链","气血指环"].forEach(i => registerItem(i, commonAll, "小怪掉落", "极难"));
-    ["狼牙项链","狼牙指环","龟甲项链","龟甲指环","刺客项链","刺客指环","重生项链","重生指环","冥月项链","冥月指环"].forEach(i => registerItem(i, commonHard, "小怪掉落", "极难"));
+    ["狼牙项链","狼牙指环","龟甲项链","龟甲指环","刺客项链","刺客指环","重生项链","重生指环","冥月项链","冥月指环"].forEach(i => registerItem(i, "黄金陵、炽热沙滩、尤玛火山", "小怪掉落", "极难"));
     ["勇气项链","勇气指环"].forEach(i => registerItem(i, "炽热沙滩、尤玛火山、死亡沙漠", "小怪掉落", "极难"));
     ["耀日项链","耀日指环","钻石项链","钻石指环","无痕项链","无痕指环","祝福项链","祝福指环"].forEach(i => registerItem(i, "死亡沙漠", "小怪掉落", "极难"));
-
-    // 龙宫系列
     const dragon = ["龙宫之杖","龙宫布帽","龙宫铁靴","龙宫之宝","龙宫宝杖","龙宫宝帽","龙宫宝靴","龙宫宝甲","龙宫珍宝","龙宫神甲","龙宫神靴","龙宫神帽","龙宫神杖","龙宫贵宝"];
     dragon.forEach(i => registerItem(i, "海底世界", "小怪掉落", "困难"));
-
-    // 雷霆/暴风/威望
     registerItem("雷雳之剑", "石阵", "BOSS掉落", "极难");
     registerItem("雷雳圣甲", "石阵", "小怪掉落", "极难");
     registerItem("雷雳之靴", "石阵", "小怪掉落", "极难");
@@ -598,8 +740,6 @@
     registerItem("暴风神甲", "孢子林", "小怪掉落", "极难");
     registerItem("暴风之靴", "孢子林", "小怪掉落", "极难");
     ["威猛神弓","威信藤甲","神威战靴","威世之链","威望之戒","神威之翼","威严头盔","威光镯","威光宝石"].forEach(i => registerItem(i, "铁匠铺", "威望购买", "简单"));
-
-    // 神宠专属
     registerItem("卓越之剑", "黑王子", "神宠专属", "特殊");
     registerItem("祈祷之靴", "香奈儿", "神宠专属", "特殊");
     registerItem("霓裳羽翼", "睡美人雅雅", "神宠专属", "特殊");
@@ -620,7 +760,6 @@
     registerItem("魔神钢爪", "战翼魔神", "神宠专属", "特殊");
     registerItem("蛇魔戒指", "蛇魔丝西娜", "神宠专属", "特殊");
     registerItem("将军之帽", "人头马将军", "神宠专属", "特殊");
-
     // 女神系列
     registerItem("女神翅膀", "秋千女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
     registerItem("女神靴子", "人鱼女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
@@ -632,6 +771,12 @@
     registerItem("女神项链", "铁骑女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
     registerItem("女神戒指", "太阳女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
     registerItem("女神之帽", "魔法女神", "神宠专属", "女神圣水50个，三色石块100个，菲拉苛5次");
+    // 神宠专属系列 (新增)
+    registerItem("月舞清影（月）", "月影清弦", "神宠专属", "玲珑城10次、寒冰玉石10个；阿尔提10次、赤翼10个；菲拉苛10次、暗灵神器10个；女神圣水100个、三色石头100个、厄菲斯10次");
+    registerItem("婚戒义戒镶嵌宝石", "双生幻想", "神宠专属", "12次厄菲斯；599个鬼屋怪物；10次阿尔提、8次菲拉苛；女神圣水80个、三色石头50个、双生幻想之卵1个");
+    registerItem("右卡蓝水晶", "荼蘼", "神宠专属", "12次厄菲斯；599个鬼屋怪物；10次阿尔提、8次菲拉苛；女神圣水80个、三色石头50个");
+    registerItem("左卡紫水晶", "瞳溟", "神宠专属", "12次厄菲斯；599个鬼屋怪物；10次阿尔提、8次菲拉苛；女神圣水80个、三色石头50个");
+    registerItem("专属水晶", "青龙剑圣", "神宠专属", "12次厄菲斯；599个鬼屋怪物；10次阿尔提、8次菲拉苛；女神圣水80个、三色石头50个");
 
     ["玲珑之铠","玲珑之盔","玲珑之靴","玲珑之链","玲珑之翼","玲珑之镯","玲珑之翠","玲珑之剑","玲珑之戒"].forEach(i => registerItem(i, "vip至尊礼袋", "开包", "简单"));
     ["神恩之甲","神恩之盔","神恩之靴","神恩之链","神恩之翼","神恩之镯","神恩之珠","神恩之剑","神恩之戒"].forEach(i => registerItem(i, "神恩魔法石", "魔法屋开包", "简单"));
@@ -644,7 +789,6 @@
     registerItem("婚戒", "情人岛求婚", "情侣任务", "普通");
     registerItem("义戒", "情人岛结义", "结义任务", "普通");
 
-    // 装备分组渲染 (保持原样，节省篇幅但核心功能保留)
     const beadGroups = [
         { title: "水晶珠", items: elements.map(e => `(${e})水晶珠`) },
         { title: "聚灵珠", items: elements.map(e => `(${e})聚灵珠`) },
@@ -692,9 +836,9 @@
         { title: "火神系列", items: ["火神的烈焰之羽","火神的魔焰手环","火神的炽血圣钻"] },
         { title: "恶魔系列", items: demons }
     ];
-    const shengshiItems = ["卓越之剑","祈祷之靴","霓裳羽翼","麒麟圣铠","普拉朵之链","紫晶手链","花之恋","天使光芒","百魅魔戒","灵巧之帽"];
-    const natureItems = ["神兽手镯","终极之链","精雕圣铠","幻彩猫靴","克隆羽翼","潜伏魔刀","可可石光","魔神钢爪","蛇魔戒指","将军之帽"];
     const goddessItems = ["女神翅膀","女神靴子","女神之箭","女神手镯","女神战袍","女神宝石","女神道具","女神项链","女神戒指","女神之帽"];
+    const newExclusiveItems = ["月舞清影（月）","婚戒义戒镶嵌宝石","右卡蓝水晶","左卡紫水晶","专属水晶"];
+
     const sections = [
         { title: "🔥 BOSS装备系列", type: "bossGroup", groups: bossSubSections },
         { title: "💎 珠系列", type: "group", groups: beadGroups },
@@ -706,9 +850,10 @@
         { title: "⚡ 雷霆系列", type: "simple", items: ["雷雳之剑","雷雳圣甲","雷雳之靴","雷雳战盔","雷霆之戒","雷霆羽翼"] },
         { title: "🌪️ 暴风系列", type: "simple", items: ["暴风权杖","暴风之珠","暴风之盔","暴风神甲","暴风之靴"] },
         { title: "🏅 威望系列", type: "simple", items: ["威猛神弓","威信藤甲","神威战靴","威世之链","威望之戒","神威之翼","威严头盔","威光镯","威光宝石"] },
-        { title: "✨ 盛世系列", type: "simple", items: shengshiItems },
-        { title: "🌿 自然系列", type: "simple", items: natureItems },
+        { title: "✨ 盛世系列", type: "simple", items: ["卓越之剑","祈祷之靴","霓裳羽翼","麒麟圣铠","普拉朵之链","紫晶手链","花之恋","天使光芒","百魅魔戒","灵巧之帽"] },
+        { title: "🌿 自然系列", type: "simple", items: ["神兽手镯","终极之链","精雕圣铠","幻彩猫靴","克隆羽翼","潜伏魔刀","可可石光","魔神钢爪","蛇魔戒指","将军之帽"] },
         { title: "👸 女神系列", type: "simple", items: goddessItems },
+        { title: "💠 神宠专属系列", type: "simple", items: newExclusiveItems },
         { title: "💎 玲珑系列", type: "simple", items: ["玲珑之铠","玲珑之盔","玲珑之靴","玲珑之链","玲珑之翼","玲珑之镯","玲珑之翠","玲珑之剑","玲珑之戒"] },
         { title: "🙏 神恩系列", type: "simple", items: ["神恩之甲","神恩之盔","神恩之靴","神恩之链","神恩之翼","神恩之镯","神恩之珠","神恩之剑","神恩之戒"] },
         { title: "⚙️ 战令系列", type: "simple", items: ["战令左卡","战令右卡","战令背景","战令皮肤"] },
@@ -835,108 +980,18 @@
     document.getElementById('equipSearch')?.addEventListener('input', e => renderEquip(e.target.value));
     renderEquip();
 
-    // ===================== 宠物合成数据 (完整保留，为节省篇幅但功能完整) =====================
+    // ===================== 宠物数据 (保持不变) =====================
     const noteData = {
         newland: { title: "🌍 新大陆宠物", pets: ["毒喃鼠","鸭嘴龟","慕斯幽","偷桃的小猴","§石阵巨人§","K歌仙人掌","暗夜咻豹","悟不空","正太木乃伊","魔法女生","僵尸叔叔","丘比特","木马骑士","唱片机小兔","小狸猫","狂怒鹰","单车狮子王","飞天猪","鸭子","无辜小鹿","福尔摩狮","女法师琳达","腐尸鸟","地狱火魔兽"] },
         tier10: { title: "🔥 10阶宠", pets: ["兽王神","金龙霸王","小青龙琅琅","冰龙苍海","艾薇儿","天界玉兔","三尾忍忍","仙狐六尾","天狐莫姬","炎龙血焰","黄龙莫虚","天蚁","青龙琅琅","月饼大仙","冰雪鸟"] },
         high: { title: "✨ 高阶宠", pets: ["恶魔波姆","黄金鸟教皇","兽王","梦魇","天使波姆","梦幻猫","火灵猴","狐仙莫莫","玛雅","战神兔","天羽圣马","月亮兔","中山狼","小幽灵欧姆","爱莉雅","赤爪青鸾","圣诞冰波姆","调皮的雪孩子","圣诞麋鹿","寄居蟹"] },
         sea: { title: "🌊 海底宠", pets: ["金鱼","海马","小玄武"] }
     };
-
-    const ccDataList = [
-        ["K歌仙人掌", "10阶宠/新大陆宠（除僵尸叔叔、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "K歌仙人掌", "K歌仙人掌"],
-        ["僵尸叔叔", "10阶宠/新大陆宠（除腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "僵尸叔叔", "僵尸叔叔"],
-        ["悟不空", "10阶宠/新大陆宠（除魔法女生、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "悟不空", "悟不空"],
-        ["魔法女生", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "魔法女生", "魔法女生"],
-        ["§石阵巨人§", "10阶宠/新大陆宠（除K歌仙人掌、暗夜咻豹、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "§石阵巨人§", "§石阵巨人§"],
-        ["暗夜咻豹", "10阶宠/新大陆宠（除女法师琳达、僵尸叔叔、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "暗夜咻豹", "暗夜咻豹"],
-        ["女法师琳达", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "女法师琳达", "女法师琳达"]
-    ];
-
-    const wuxingData = [
-        ["金波姆","任意波姆","波光姆","金波姆王",""],["绿波姆","任意波姆","波碧姆","绿波姆王",""],
-        ["水波姆","任意波姆","波波姆","水波姆王",""],["火波姆","任意波姆","波纳姆","火波姆王",""],
-        ["土波姆","任意波姆","波岩姆","土波姆王",""],["波光姆","任意波姆","金波姆王","金光鼠",""],
-        ["波碧姆","任意波姆","绿波姆王","碧蟾",""],["波波姆","任意波姆","水波姆王","水仙",""],
-        ["波纳姆","任意波姆","火波姆王","火芒",""],["波岩姆","任意波姆","土波姆王","魔岩卵",""],
-        ["金波姆王","任意波姆","金光鼠","雷光鼠",""],["绿波姆王","任意波姆","碧蟾","老爷蛙",""],
-        ["水波姆王","任意波姆","水仙","雪芙",""],["火波姆王","任意波姆","火芒","吸血蚊",""],
-        ["土波姆王","任意波姆","魔岩卵","黑蚁",""],["黄金鸟","任意波姆","金光鼠","黄金独角兽",""],
-        ["金光鼠","任意波姆","雷光鼠","雷炎鼠",""],["碧蟾","任意波姆","老爷蛙","紫冥蟾",""],
-        ["水仙","任意波姆","雪芙","冰露",""],["火芒","任意波姆","吸血蚊","血炎兽",""],
-        ["魔岩卵","任意波姆","黑蚁","蚂蚁守卫",""],["雷光鼠","任意波姆","光驹","雷炎鼠",""],
-        ["光驹","任意波姆","雷光鼠","黄金独角兽",""],["老爷蛙","任意波姆","弹簧蛇","紫冥蟾",""],
-        ["弹簧蛇","任意波姆","老爷蛙","紫木蝎",""],["雪芙","任意波姆","冰石机","冰露",""],
-        ["吸血蚊","任意波姆","火龙蛋","赤锦",""],["黑蚁","任意波姆","黑蚁","水晶圣甲虫",""],
-        ["雷炎鼠","任意波姆","流氓奶牛","黄金蝙蝠",""],["黄金独角兽","任意波姆","流氓奶牛","紫貘",""],
-        ["紫冥蟾","任意波姆","紫木蝎","贪食蛇",""],["紫木蝎","任意波姆","紫冥蟾","贪食蛇",""],
-        ["冰露","任意波姆","仙宫玉兔","雪蝶兽",""],["赌博鼠","任意波姆","血炎兽","猞猁猫",""],
-        ["血炎兽","任意波姆","赌博鼠","火羽",""],["赤锦","任意波姆","赌博鼠","赤爪青鸾",""],
-        ["蚂蚁守卫","任意波姆","香蕉猴","岩兽人",""],["波姆兔","任意波姆","波姆兔王","月亮兔",""],
-        ["香蕉猴","任意波姆","水晶圣甲虫","岩兽人",""],["水晶圣甲虫","任意波姆","蚂蚁守卫","波姆兔",""],
-        ["仙宫玉兔","任意波姆","香蕉猴","波姆兔王",""],["流氓奶牛","任意波姆","黄金独角兽","紫貘",""],
-        ["紫貘","任意波姆","黄金蝙蝠","圣洁独角兽",""],["化蛇王","任意波姆","青龙兽","青蛟",""],
-        ["贪食蛇","任意波姆","化蛇王","青龙兽",""],["雪蝶兽","任意波姆","飞羽龟","梦幻猫",""],
-        ["寄居蟹","任意波姆","雪蝶兽","飞羽龟",""],["赤爪青鸾","任意波姆","猞猁猫","火焰蝙蝠",""],
-        ["火羽","任意波姆","火焰蝙蝠","火灵猴",""],["猞猁猫","任意波姆","赤爪青鸾","火焰蝙蝠",""],
-        ["波姆兔王","任意波姆","月亮兔","战神兔",""],["岩兽人","任意波姆","波姆兔王","中山狼",""],
-        ["黄金蝙蝠","任意波姆","紫貘","圣洁独角兽",""],["圣洁独角兽","任意波姆","圣羽天马","恶魔波姆",""],
-        ["青龙兽","任意波姆","花叶童子","青蛟",""],["恶魔鸟","任意波姆","青龙兽","梦魇",""],
-        ["花叶童子","任意波姆","恶魔鸟","梦魇",""],["爱莉丝","任意波姆","爱莉雅","艾薇儿",""],
-        ["火焰蝙蝠","任意波姆","火岩兽","火灵猴",""],["月亮兔","任意波姆","中山狼","战神兔",""],
-        ["中山狼","任意波姆","月亮兔","玛雅",""],["圣羽天马","任意波姆","黄金鸟教皇","金龙霸王",""],
-        ["黄金鸟教皇","任意波姆","恶魔波姆","金龙霸王",""],["青蛟","任意波姆","小青龙琅琅","青龙琅琅",""],
-        ["梦魇","任意波姆","青蛟","青龙琅琅",""],["天使波姆","任意波姆","梦幻猫","艾薇儿",""],
-        ["梦幻猫","任意波姆","天使波姆","艾薇儿",""],["火灵猴","任意波姆","狐仙莫莫","三尾忍忍",""],
-        ["狐仙莫莫","任意波姆","火灵猴","仙狐六尾",""],["战神兔","任意波姆","玛雅","黄龙莫虚",""],
-        ["玛雅","任意波姆","战神兔","黄龙莫虚",""],["恶魔波姆","任意波姆","圣羽天马","金龙霸王",""],
-        ["月饼大仙","任意波姆","金龙霸王","金龙霸王",""],["三尾忍忍","任意波姆","仙狐六尾","仙狐六尾",""],
-        ["仙狐六尾","任意波姆","天狐莫姬","天狐莫姬",""],["艾薇儿","任意波姆","冰龙苍海","冰龙苍海",""],
-        ["小青龙琅琅","金波姆","青龙琅琅","金龙霸王",""],["小青龙琅琅","任意波姆（除金波姆）","青龙琅琅","青龙琅琅",""],
-        ["天界玉兔","任意波姆","冰龙苍海","冰龙苍海",""],["金龙霸王","任意波姆","冰龙苍海","金龙霸王",""],
-        ["青龙琅琅","任意波姆","炎龙血焰","炎龙血焰",""],["冰龙苍海","任意波姆","青龙琅琅","青龙琅琅",""],
-        ["炎龙血焰","任意波姆","黄龙莫虚","黄龙莫虚",""],["黄龙莫虚","任意波姆","金龙霸王","金龙霸王",""],
-        ["调皮的雪孩子","圣诞冰波姆","圣诞麋鹿","圣诞麋鹿",""],["圣诞冰波姆","圣诞冰波姆","圣诞冰波姆","寄居蟹",""],
-        ["爱莉雅","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","调皮的雪孩子","调皮的雪孩子",""],
-        ["圣诞冰波姆","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","圣诞冰波姆","调皮的雪孩子",""],
-        ["天蚁","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","兽王神","天界玉兔",""],
-        ["天狐莫姬","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","天狐莫姬","冰雪鸟",""],
-        ["无辜小鹿","僵尸叔叔/丘比特/木马骑士/唱片机小兔","圣诞麋鹿","圣诞麋鹿",""]
-    ];
-
-    const templeMainData = [
-        ["K歌仙人掌","僵尸叔叔","K歌仙人掌","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
-        ["悟不空","魔法女生","悟不空","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
-        ["§石阵巨人§","暗夜咻豹","§石阵巨人§","★GM鸭子★","主宠成长>=80,副宠成长>=60"],
-        ["K歌仙人掌","正太木乃伊","K歌仙人掌","★忍者小乌龟★","主宠成长>=80,副宠成长>=60"],
-        ["暗夜咻豹","女法师琳达","暗夜咻豹","★囧娃娃★","主宠成长>=80,副宠成长>=60"],
-        ["暗夜咻豹","僵尸叔叔","暗夜咻豹","★四叶草宝宝★","主宠成长>=80,副宠成长>=60"],
-        ["悟不空","正太木乃伊","悟不空","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],
-        ["§石阵巨人§","K歌仙人掌","§石阵巨人§","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],
-        ["★GM鸭子★","★龙蛇玄武★","☆GM鸭子☆","☆GM鸭子☆","主宠成长>=1,副宠成长>=200"],
-        ["★蜡笔MM★","★龙蛇玄武★","☆蜡笔MM☆","☆蜡笔MM☆","主宠成长>=1,副宠成长>=200"],
-        ["★忍者小乌龟★","★龙蛇玄武★","☆忍者小乌龟☆","☆忍者小乌龟☆","主宠成长>=1,副宠成长>=200"],
-        ["★囧娃娃★","★龙蛇玄武★","☆囧娃娃☆","☆囧娃娃☆","主宠成长>=1,副宠成长>=200"],
-        ["★四叶草宝宝★","★龙蛇玄武★","☆四叶草宝宝☆","☆四叶草宝宝☆","主宠成长>=1,副宠成长>=200"]
-    ];
-
-    const acquireData = [
-        ["福尔摩狮","火焰蝙蝠/火羽/岩兽人","福尔摩狮","悟不空",""],["女法师琳达","火焰蝙蝠/火羽/岩兽人","女法师琳达","悟不空",""],
-        ["偷桃的小猴","火焰蝙蝠/火羽/岩兽人","偷桃的小猴","悟不空",""],["飞天猪","火焰蝙蝠/雪蝶兽/岩兽人","飞天猪","§石阵巨人§",""],
-        ["鸭子","火焰蝙蝠/雪蝶兽/岩兽人","鸭子","§石阵巨人§",""],["小狸猫","火焰蝙蝠/雪蝶兽/岩兽人","小狸猫","§石阵巨人§",""],
-        ["无辜小鹿","中山狼/猞猁猫/化蛇王","无辜小鹿","K歌仙人掌",""],["狂怒鹰","中山狼/猞猁猫/化蛇王","狂怒鹰","K歌仙人掌",""],
-        ["单车狮子王","中山狼/猞猁猫/化蛇王","单车狮子王","K歌仙人掌",""],["毒喃鼠","花叶童子/紫貘/火羽","毒喃鼠","暗夜咻豹",""],
-        ["鸭嘴龟","花叶童子/紫貘/火羽","鸭嘴龟","暗夜咻豹",""],["慕斯幽","花叶童子/紫貘/火羽","慕斯幽","暗夜咻豹",""]
-    ];
-
-    const ultimateData = [
-        ["青龙琅琅","木★艾比","炎龙血焰","狻猊",""],["金龙霸王","金★阿莲娜","冰龙苍海","许德拉",""],
-        ["冰龙苍海","水★佑碧","炎龙血焰","齐伦",""],["炎龙血焰","火★西西","黄龙莫虚","艾尔斯",""],
-        ["黄龙莫虚","土★巴特","金龙霸王","剑蛇君",""],["金★阿莲娜","金龙霸王","金★阿莲娜","★阿莲娜★",""],
-        ["木★艾比","青龙琅琅","木★艾比","★艾比★",""],["水★佑碧","冰龙苍海","水★佑碧","★佑碧★",""],
-        ["火★西西","炎龙血焰","火★西西","★西西★",""],["土★巴特","黄龙莫虚","土★巴特","★巴特★",""]
-    ];
-
+    const ccDataList = [["K歌仙人掌", "10阶宠/新大陆宠（除僵尸叔叔、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "K歌仙人掌", "K歌仙人掌"],["僵尸叔叔", "10阶宠/新大陆宠（除腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "僵尸叔叔", "僵尸叔叔"],["悟不空", "10阶宠/新大陆宠（除魔法女生、正太木乃伊、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "悟不空", "悟不空"],["魔法女生", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "魔法女生", "魔法女生"],["§石阵巨人§", "10阶宠/新大陆宠（除K歌仙人掌、暗夜咻豹、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "§石阵巨人§", "§石阵巨人§"],["暗夜咻豹", "10阶宠/新大陆宠（除女法师琳达、僵尸叔叔、唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "暗夜咻豹", "暗夜咻豹"],["女法师琳达", "10阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/高阶宠（除天羽圣马）", "女法师琳达", "女法师琳达"]];
+    const wuxingData = [["金波姆","任意波姆","波光姆","金波姆王",""],["绿波姆","任意波姆","波碧姆","绿波姆王",""],["水波姆","任意波姆","波波姆","水波姆王",""],["火波姆","任意波姆","波纳姆","火波姆王",""],["土波姆","任意波姆","波岩姆","土波姆王",""],["波光姆","任意波姆","金波姆王","金光鼠",""],["波碧姆","任意波姆","绿波姆王","碧蟾",""],["波波姆","任意波姆","水波姆王","水仙",""],["波纳姆","任意波姆","火波姆王","火芒",""],["波岩姆","任意波姆","土波姆王","魔岩卵",""],["金波姆王","任意波姆","金光鼠","雷光鼠",""],["绿波姆王","任意波姆","碧蟾","老爷蛙",""],["水波姆王","任意波姆","水仙","雪芙",""],["火波姆王","任意波姆","火芒","吸血蚊",""],["土波姆王","任意波姆","魔岩卵","黑蚁",""],["黄金鸟","任意波姆","金光鼠","黄金独角兽",""],["金光鼠","任意波姆","雷光鼠","雷炎鼠",""],["碧蟾","任意波姆","老爷蛙","紫冥蟾",""],["水仙","任意波姆","雪芙","冰露",""],["火芒","任意波姆","吸血蚊","血炎兽",""],["魔岩卵","任意波姆","黑蚁","蚂蚁守卫",""],["雷光鼠","任意波姆","光驹","雷炎鼠",""],["光驹","任意波姆","雷光鼠","黄金独角兽",""],["老爷蛙","任意波姆","弹簧蛇","紫冥蟾",""],["弹簧蛇","任意波姆","老爷蛙","紫木蝎",""],["雪芙","任意波姆","冰石机","冰露",""],["吸血蚊","任意波姆","火龙蛋","赤锦",""],["黑蚁","任意波姆","黑蚁","水晶圣甲虫",""],["雷炎鼠","任意波姆","流氓奶牛","黄金蝙蝠",""],["黄金独角兽","任意波姆","流氓奶牛","紫貘",""],["紫冥蟾","任意波姆","紫木蝎","贪食蛇",""],["紫木蝎","任意波姆","紫冥蟾","贪食蛇",""],["冰露","任意波姆","仙宫玉兔","雪蝶兽",""],["赌博鼠","任意波姆","血炎兽","猞猁猫",""],["血炎兽","任意波姆","赌博鼠","火羽",""],["赤锦","任意波姆","赌博鼠","赤爪青鸾",""],["蚂蚁守卫","任意波姆","香蕉猴","岩兽人",""],["波姆兔","任意波姆","波姆兔王","月亮兔",""],["香蕉猴","任意波姆","水晶圣甲虫","岩兽人",""],["水晶圣甲虫","任意波姆","蚂蚁守卫","波姆兔",""],["仙宫玉兔","任意波姆","香蕉猴","波姆兔王",""],["流氓奶牛","任意波姆","黄金独角兽","紫貘",""],["紫貘","任意波姆","黄金蝙蝠","圣洁独角兽",""],["化蛇王","任意波姆","青龙兽","青蛟",""],["贪食蛇","任意波姆","化蛇王","青龙兽",""],["雪蝶兽","任意波姆","飞羽龟","梦幻猫",""],["寄居蟹","任意波姆","雪蝶兽","飞羽龟",""],["赤爪青鸾","任意波姆","猞猁猫","火焰蝙蝠",""],["火羽","任意波姆","火焰蝙蝠","火灵猴",""],["猞猁猫","任意波姆","赤爪青鸾","火焰蝙蝠",""],["波姆兔王","任意波姆","月亮兔","战神兔",""],["岩兽人","任意波姆","波姆兔王","中山狼",""],["黄金蝙蝠","任意波姆","紫貘","圣洁独角兽",""],["圣洁独角兽","任意波姆","圣羽天马","恶魔波姆",""],["青龙兽","任意波姆","花叶童子","青蛟",""],["恶魔鸟","任意波姆","青龙兽","梦魇",""],["花叶童子","任意波姆","恶魔鸟","梦魇",""],["爱莉丝","任意波姆","爱莉雅","艾薇儿",""],["火焰蝙蝠","任意波姆","火岩兽","火灵猴",""],["月亮兔","任意波姆","中山狼","战神兔",""],["中山狼","任意波姆","月亮兔","玛雅",""],["圣羽天马","任意波姆","黄金鸟教皇","金龙霸王",""],["黄金鸟教皇","任意波姆","恶魔波姆","金龙霸王",""],["青蛟","任意波姆","小青龙琅琅","青龙琅琅",""],["梦魇","任意波姆","青蛟","青龙琅琅",""],["天使波姆","任意波姆","梦幻猫","艾薇儿",""],["梦幻猫","任意波姆","天使波姆","艾薇儿",""],["火灵猴","任意波姆","狐仙莫莫","三尾忍忍",""],["狐仙莫莫","任意波姆","火灵猴","仙狐六尾",""],["战神兔","任意波姆","玛雅","黄龙莫虚",""],["玛雅","任意波姆","战神兔","黄龙莫虚",""],["恶魔波姆","任意波姆","圣羽天马","金龙霸王",""],["月饼大仙","任意波姆","金龙霸王","金龙霸王",""],["三尾忍忍","任意波姆","仙狐六尾","仙狐六尾",""],["仙狐六尾","任意波姆","天狐莫姬","天狐莫姬",""],["艾薇儿","任意波姆","冰龙苍海","冰龙苍海",""],["小青龙琅琅","金波姆","青龙琅琅","金龙霸王",""],["小青龙琅琅","任意波姆（除金波姆）","青龙琅琅","青龙琅琅",""],["天界玉兔","任意波姆","冰龙苍海","冰龙苍海",""],["金龙霸王","任意波姆","冰龙苍海","金龙霸王",""],["青龙琅琅","任意波姆","炎龙血焰","炎龙血焰",""],["冰龙苍海","任意波姆","青龙琅琅","青龙琅琅",""],["炎龙血焰","任意波姆","黄龙莫虚","黄龙莫虚",""],["黄龙莫虚","任意波姆","金龙霸王","金龙霸王",""],["调皮的雪孩子","圣诞冰波姆","圣诞麋鹿","圣诞麋鹿",""],["圣诞冰波姆","圣诞冰波姆","圣诞冰波姆","寄居蟹",""],["爱莉雅","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","调皮的雪孩子","调皮的雪孩子",""],["圣诞冰波姆","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","圣诞冰波姆","调皮的雪孩子",""],["天蚁","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","兽王神","天界玉兔",""],["天狐莫姬","新大陆宠（除唱片机小兔、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","天狐莫姬","冰雪鸟",""],["无辜小鹿","僵尸叔叔/丘比特/木马骑士/唱片机小兔","圣诞麋鹿","圣诞麋鹿",""]];
+    const templeMainData = [["K歌仙人掌","僵尸叔叔","K歌仙人掌","★GM鸭子★","主宠成长>=80,副宠成长>=60"],["悟不空","魔法女生","悟不空","★GM鸭子★","主宠成长>=80,副宠成长>=60"],["§石阵巨人§","暗夜咻豹","§石阵巨人§","★GM鸭子★","主宠成长>=80,副宠成长>=60"],["K歌仙人掌","正太木乃伊","K歌仙人掌","★忍者小乌龟★","主宠成长>=80,副宠成长>=60"],["暗夜咻豹","女法师琳达","暗夜咻豹","★囧娃娃★","主宠成长>=80,副宠成长>=60"],["暗夜咻豹","僵尸叔叔","暗夜咻豹","★四叶草宝宝★","主宠成长>=80,副宠成长>=60"],["悟不空","正太木乃伊","悟不空","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],["§石阵巨人§","K歌仙人掌","§石阵巨人§","★蜡笔MM★","主宠成长>=80,副宠成长>=60"],["★GM鸭子★","★龙蛇玄武★","☆GM鸭子☆","☆GM鸭子☆","主宠成长>=1,副宠成长>=200"],["★蜡笔MM★","★龙蛇玄武★","☆蜡笔MM☆","☆蜡笔MM☆","主宠成长>=1,副宠成长>=200"],["★忍者小乌龟★","★龙蛇玄武★","☆忍者小乌龟☆","☆忍者小乌龟☆","主宠成长>=1,副宠成长>=200"],["★囧娃娃★","★龙蛇玄武★","☆囧娃娃☆","☆囧娃娃☆","主宠成长>=1,副宠成长>=200"],["★四叶草宝宝★","★龙蛇玄武★","☆四叶草宝宝☆","☆四叶草宝宝☆","主宠成长>=1,副宠成长>=200"]];
+    const acquireData = [["福尔摩狮","火焰蝙蝠/火羽/岩兽人","福尔摩狮","悟不空",""],["女法师琳达","火焰蝙蝠/火羽/岩兽人","女法师琳达","悟不空",""],["偷桃的小猴","火焰蝙蝠/火羽/岩兽人","偷桃的小猴","悟不空",""],["飞天猪","火焰蝙蝠/雪蝶兽/岩兽人","飞天猪","§石阵巨人§",""],["鸭子","火焰蝙蝠/雪蝶兽/岩兽人","鸭子","§石阵巨人§",""],["小狸猫","火焰蝙蝠/雪蝶兽/岩兽人","小狸猫","§石阵巨人§",""],["无辜小鹿","中山狼/猞猁猫/化蛇王","无辜小鹿","K歌仙人掌",""],["狂怒鹰","中山狼/猞猁猫/化蛇王","狂怒鹰","K歌仙人掌",""],["单车狮子王","中山狼/猞猁猫/化蛇王","单车狮子王","K歌仙人掌",""],["毒喃鼠","花叶童子/紫貘/火羽","毒喃鼠","暗夜咻豹",""],["鸭嘴龟","花叶童子/紫貘/火羽","鸭嘴龟","暗夜咻豹",""],["慕斯幽","花叶童子/紫貘/火羽","慕斯幽","暗夜咻豹",""]];
+    const ultimateData = [["青龙琅琅","木★艾比","炎龙血焰","狻猊",""],["金龙霸王","金★阿莲娜","冰龙苍海","许德拉",""],["冰龙苍海","水★佑碧","炎龙血焰","齐伦",""],["炎龙血焰","火★西西","黄龙莫虚","艾尔斯",""],["黄龙莫虚","土★巴特","金龙霸王","剑蛇君",""],["金★阿莲娜","金龙霸王","金★阿莲娜","★阿莲娜★",""],["木★艾比","青龙琅琅","木★艾比","★艾比★",""],["水★佑碧","冰龙苍海","水★佑碧","★佑碧★",""],["火★西西","炎龙血焰","火★西西","★西西★",""],["土★巴特","黄龙莫虚","土★巴特","★巴特★",""]];
     const hunicuData = [["单车狮子王","兽王神","单车狮子王","虎妞","主宠成长>=100,副宠成长>=10"]];
     const hunicuCcData = [["单车狮子王","10阶宠（除兽王神）/海底宠/高阶宠（除天羽圣马）/小狸猫/狂怒鹰/单车狮子王/飞天猪/鸭子/无辜小鹿/青蛟","单车狮子王","单车狮子王"]];
     const baihuData = [["兽王神","10阶宠","金龙霸王","白虎",""]];
@@ -947,21 +1002,11 @@
     const xiaoshenmaoData = [["小红帽","金龙霸王","小神帽","小神帽",""]];
     const huoshenhouData = [["火灵猴","偷桃的小猴","火神猴","火神猴","主宠成长>=60,副宠成长>=100"]];
     const huoshenhouCcData = [["火波姆","小神龙琅玡","波纳姆","火波姆王"],["偷桃的小猴","10阶宠/高阶宠/新大陆宠（除唱片机小兔、腐尸鸟、地狱火魔兽）/海底宠/青蛟","偷桃的小猴","偷桃的小猴"]];
-
     const waltzData = [["★龙蛇玄武★","华尔兹","真·华尔兹","真·华尔兹","主宠成长>=500,副宠成长>=1"]];
     const xuanyuanData = [["小玄武","小玄武/10阶宠（除冰雪鸟）/新大陆宠（除偷桃的小猴、女法师琳达、小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","★龙蛇玄武★",""]];
-    const xiaoxuanwuData = [
-        ["海马","金鱼/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],
-        ["金鱼","海马/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],
-        ["天蚁","圣诞麋鹿","天蚁","小玄武",""]
-    ];
-    const xiaoxuanwuCcData = [
-        ["小玄武","海马/金鱼/高阶宠（除战神兔、天羽圣马）","小玄武","小玄武"],
-        ["金鱼","金鱼/高阶宠（除天羽圣马、圣诞麋鹿）","金鱼","金鱼"],
-        ["海马","海马/高阶宠（除天羽圣马、圣诞麋鹿）","海马","海马"]
-    ];
+    const xiaoxuanwuData = [["海马","金鱼/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],["金鱼","海马/新大陆宠（除小狸猫、狂怒鹰、单车狮子王、飞天猪、鸭子、无辜小鹿、腐尸鸟、地狱火魔兽）","小玄武","小玄武",""],["天蚁","圣诞麋鹿","天蚁","小玄武",""]];
+    const xiaoxuanwuCcData = [["小玄武","海马/金鱼/高阶宠（除战神兔、天羽圣马）","小玄武","小玄武"],["金鱼","金鱼/高阶宠（除天羽圣马、圣诞麋鹿）","金鱼","金鱼"],["海马","海马/高阶宠（除天羽圣马、圣诞麋鹿）","海马","海马"]];
 
-    // 浮动弹窗及合成渲染逻辑 (功能保持，为保证代码运行略写但完整包含)
     const floatingNote = document.getElementById('floatingNote');
     const ccFloating = document.getElementById('ccFloating');
     const otherCcFloating = document.getElementById('otherCcFloating');
@@ -1062,8 +1107,157 @@
     const petSubBtns = document.querySelectorAll('.pet-sub-btn');
     function switchPetSub(subType) { if (subType === 'synthesize') { synthPanel.classList.add('active'); evolutionPanel.classList.remove('active'); } else { synthPanel.classList.remove('active'); evolutionPanel.classList.add('active'); } petSubBtns.forEach(btn => { if (btn.dataset.sub === subType) btn.classList.add('active'); else btn.classList.remove('active'); }); }
     petSubBtns.forEach(btn => { btn.addEventListener('click', () => { switchPetSub(btn.dataset.sub); }); });
-    const equipTab = document.getElementById('equipTab'), petTab = document.getElementById('petTab'), mainBtns = document.querySelectorAll('.tab-btn'), dropToast = document.getElementById('dropToast');
-    mainBtns.forEach(btn => { btn.addEventListener('click', () => { mainBtns.forEach(b => b.classList.remove('active')); btn.classList.add('active'); equipTab.classList.remove('active'); petTab.classList.remove('active'); if (btn.dataset.tab === 'equip') { equipTab.classList.add('active'); if (dropToast) dropToast.style.display = 'block'; } else { petTab.classList.add('active'); if (dropToast) dropToast.style.display = 'none'; if (!synthPanel.classList.contains('active') && !evolutionPanel.classList.contains('active')) switchPetSub('synthesize'); } }); });
+
+    // ===================== 新手FAQ逻辑 =====================
+    const faqDatabase = [
+      { q: "如何使用牧台挂机？", a: "在神秘商店购买<strong>牧场许可证</strong>，放在背包里即可。牧场内有满足CC要求的宠物时可挂机：<br>• 旧大陆：CC > 300<br>• 新大陆：CC ≥ 500<br>• 昆仑神墟：CC ≥ 800<br>• 神圣地图：CC ≥ 1500<br>• 魂灵大陆：CC ≥ 20000", tags: ["牧台", "挂机", "许可证"] },
+      { q: "可以同时挂多个宠物吗？", a: "不可以，最多只能挂1个。", tags: ["牧台", "挂机"] },
+      { q: "牧台挂机可以同时推进多个任务吗？", a: "可以。挂机杀怪进度会平行计入所有要求杀怪的任务中。", tags: ["牧台", "任务"] },
+      { q: "牧台许可证过期后，还能领取已完成的挂机奖励吗？", a: "可以。许可证只决定能否开始新挂机，不影响已挂机奖励领取。建议快过期时开启挂机。", tags: ["牧台", "许可证"] },
+      { q: "为什么使用加速卡后感觉没收益？", a: "加速卡无法提前结束挂机，适合挂机快结束或设定时间刚好合适时使用。", tags: ["牧台", "加速卡"] },
+      { q: "跑环任务的要求是什么？", a: "<div class='run-ring-group'><h4>🔹 第一组 (1-5环)</h4>① 妖精森林/潮汐海岸 150怪 (牧台约38分钟)<br>② 30副本梦魇2次<br>③ 黄金陵/巨石山脉 200怪 (50分钟)<br>④ 50副本五色神龙2次<br>⑤ 尤玛火山 249怪 (63分钟)</div><div class='run-ring-group'><h4>🔹 第二组 (6-10环)</h4>⑥ 神秘书页100 / 进化宝石2000<br>⑦ 死亡沙漠 299怪 (75分钟)<br>⑧ 500VIP积分<br>⑨ 冰滩 399怪 (100分钟)<br>⑩ 70副本九尾天狐2次</div><div class='run-ring-group'><h4>🔹 第三组 (11-15环)</h4>⑪ 海底 450怪 (113分钟)<br>⑫ 玲珑城2次<br>⑬ 石阵 699怪 (175分钟)<br>⑭ 暗灵江雪 5次<br>⑮ 暗灵江雪 5次 + 菲拉苛暗灵江雪 6次 (需通天塔30层)</div><p style='margin-top:8px;'>牧台挂机1分钟=4只怪，上限24小时。</p>", tags: ["跑环", "任务"] },
+      { q: "收集装备会导致装备消失吗？", a: "会的。装备图鉴相当于用装备兑换永久属性加成，被收集的装备会被消耗。", tags: ["装备", "图鉴"] },
+      { q: "正穿着的装备，能被收集进图鉴吗？", a: "不能。图鉴系统只显示背包和仓库里可供收集的装备。", tags: ["装备", "图鉴"] },
+      { q: "新手礼包获得的装备不小心丢了，还能找回吗？", a: "不能找回，但抢购商城会上。处理不熟悉物品前建议先问师傅或群友。", tags: ["装备", "丢失"] },
+      { q: "收集宠物图鉴会导致宠物消失吗？", a: "会的。重要宠物若无富余卵建议先完成任务再收集。神宠CC>30可先提取CC再收集。", tags: ["宠物", "图鉴"] },
+      { q: "我携带的宠物为什么无法收集？", a: "只有牧场内的宠物可以收集。", tags: ["宠物", "牧场"] },
+      { q: "五系外的宠物该如何收集？", a: "许多神宠只能通过开启宠物卵获得。部分宠物卵可通过魔法屋开启魔法石得到，魔法石在神秘商店有售。", tags: ["宠物", "魔法石"] },
+      { q: "圣诞冰波姆+圣诞冰波姆怎么无法合成寄居蟹？", a: "需要加入<strong>至尊神石</strong>。合成配方有概率出稀有宠时，加入至尊神石可100%确保获得。", tags: ["宠物", "合成"] },
+      { q: "神秘商店礼包任选卡如何使用？", a: "将丢弃任选卡的过程录制成完整视频，发送给GM偷心兑换。建议积攒一定数量再一起兑换。", tags: ["GM", "兑换"] },
+      { q: "金币不够用怎么办？", a: "金币通常不缺。新手涅槃时可能暂时短缺，可向老玩家求助或出售“200万经验月饼”应急。", tags: ["货币", "金币"] },
+      { q: "水晶不够用怎么办？", a: "水晶卡主要获取渠道：礼包、砸蛋以及VIP积分兑换至尊礼包。VIP积分应优先用于完成VIP任务。", tags: ["货币", "水晶"] },
+      { q: "元宝不够用怎么办？", a: "元宝是核心货币。新手通过任务、活动、种树获取；进阶玩家主要靠通天塔和新副本产出。", tags: ["货币", "元宝"] },
+      { q: "如何获取VIP积分？", a: "神秘商店消费元宝，1元宝=100积分。需要大量积分时推荐开启成长转移礼包，里面的成长转移石可在道具商店回收，平均1元宝可套取约300积分。", tags: ["货币", "VIP"] },
+      { q: "如何判断是否值得购买？", a: "多问师傅和群友。先明确需求(提升战力、做装备、收集图鉴等)，符合需求即值得。留意拍卖活动，需提前积攒元宝。", tags: ["消费", "性价比"] },
+      { q: "能否多开小号？", a: "不能。一经核实存在转移资源等行为，相关账号会被封禁。", tags: ["规则", "封号"] },
+      { q: "如何充值？", a: "请认准GM偷心(群主)。", tags: ["消费", "GM"] },
+      { q: "回属性是啥意思？", a: "平时60级或90级涅槃后，需要进行3次或2次130级主宠涅槃，才能把属性回满或回到80–90%。", tags: ["涅槃", "成长"] },
+      { q: "是不是回属性需要命中丹？", a: "对，是的。", tags: ["涅槃", "道具"] },
+      { q: "暗灵江雪、菲拉苛暗灵江雪、受诅咒的寒江雪分别在哪里？", a: "• 暗灵江雪：阿尔提副本<br>• 菲拉苛暗灵江雪：菲拉苛副本<br>• 受诅咒的寒江雪：厄菲斯副本", tags: ["副本", "位置"] },
+      { q: "神圣宠物如何升级？", a: "如果砸蛋出天赐之水，可以直接用来升级；如果没有，则主要靠牧场托管进行升级。", tags: ["神圣宠", "升级"] },
+      { q: "腐尸鸟、地狱火魔兽如何获取？", a: "随机宠物卵一般能开出很多，如果缺的话可以开启魔法石获得。", tags: ["宠物", "获取"] },
+      { q: "宝石拆了之后又装上，属性会变吗？", a: "会的。可以靠这个方法刷想要的属性。", tags: ["装备", "宝石"] },
+      { q: "鉴定和镶嵌是什么？", a: "在铁匠铺对装备进行鉴定和镶嵌，需要鉴定卷轴、红水晶、绿水晶、黄水晶等材料。<br>• 鉴定：为装备附加额外属性词条。<br>• 镶嵌：将宝石嵌入装备提升属性。", tags: ["装备", "铁匠铺"] },
+      { q: "仙侠套装可以直接做吗？", a: "不能。觉醒盛世、自然、女神、仙侠等套装都需要前置装备才能兑换。", tags: ["装备", "套装"] },
+      { q: "装备升级到下一套之后，宝石会保留吗？", a: "不会自动保留，需要提前拆下宝石。", tags: ["装备", "宝石"] },
+      { q: "新手任务的材料主要是喂给魅娘吗？", a: "是的。后期可通过成长转移石将CC转移给你想要的宠物，因此集中资源培养一个神宠即可。", tags: ["新手", "魅娘"] },
+      { q: "新手该用什么宠物？", a: "推荐使用<strong>魅娘</strong>。除了61活动的双生幻想外，魅娘是非氪党的最强宠物。", tags: ["宠物", "推荐"] },
+      { q: "可以拿神圣宠做主宠吗？", a: "不推荐。神圣宠各阶段CC上限：1阶300 / 2阶500 / 3阶800 / 4阶900 / 5阶1500 / 6阶3000。推荐将神圣宠用于挂机，升到5阶即可挂除魂灵大陆外的所有地图。", tags: ["神圣宠", "挂机"] },
+      { q: "如何拜师？", a: "进入个人界面，在师徒一栏输入你要拜师对象的名字即可。", tags: ["社交", "师徒"] },
+      { q: "如何结义和结婚？", a: "• 结义：需要结义信物，打开结义魅力礼包有概率获得。<br>• 结婚：需要亲吻鱼宠物卵。<br>获得材料后前往城镇情人岛选择对象，对方同意即可。", tags: ["社交", "结义"] },
+      { q: "结义值和魅力值如何获取？", a: "打开结义魅力礼包后有概率获得女儿红、玫瑰等材料。这些材料可在绘画小屋处赠予自己或他人，提升结义值或魅力值。", tags: ["社交", "魅力"] }
+    ];
+    const tagCategories = {
+      "🎮 玩法": ["牧台", "挂机", "跑环", "任务", "副本"],
+      "⚔️ 装备": ["装备", "图鉴", "宝石", "套装", "铁匠铺"],
+      "🐾 宠物": ["宠物", "合成", "神圣宠", "魔法石"],
+      "💰 资源": ["货币", "金币", "水晶", "元宝", "VIP"],
+      "👥 社交": ["社交", "师徒", "结义", "魅力"],
+      "⚙️ 其他": ["GM", "消费", "规则", "涅槃", "新手"]
+    };
+
+    function renderTagCategories() {
+      const container = document.getElementById('tagCategories');
+      if(!container) return;
+      container.innerHTML = Object.entries(tagCategories).map(([category, tags]) => `
+        <div class="tag-category">
+          <span class="tag-category-title">${category}</span>
+          ${tags.map(tag => `<span class="tag" data-tag="${tag}">${tag}</span>`).join('')}
+        </div>
+      `).join('');
+      container.querySelectorAll('.tag').forEach(tagEl => {
+        tagEl.addEventListener('click', () => {
+          document.getElementById('faqSearchInput').value = tagEl.dataset.tag;
+          filterFAQs(tagEl.dataset.tag);
+        });
+      });
+    }
+
+    function renderFAQs(filterText = "") {
+      const container = document.getElementById('faqContainer');
+      if(!container) return;
+      const lower = filterText.toLowerCase().trim();
+      const filtered = lower ? faqDatabase.filter(item => 
+        item.q.toLowerCase().includes(lower) || 
+        item.a.toLowerCase().includes(lower) ||
+        item.tags.some(t => t.toLowerCase().includes(lower))
+      ) : faqDatabase;
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="faq-card"><div class="faq-answer">🔍 没有找到相关问题，试试其他关键词。</div></div>';
+        return;
+      }
+      container.innerHTML = filtered.map((item, idx) => `
+        <div class="faq-card">
+          <div class="faq-question" data-index="${idx}">
+            <span>💬 ${item.q}</span>
+            <span class="collapse-icon">▼</span>
+          </div>
+          <div class="faq-answer" style="display:block;">
+            ${item.a}
+            <div class="faq-tags">${item.tags.map(t => `<span class="faq-tag">${t}</span>`).join('')}</div>
+          </div>
+        </div>
+      `).join('');
+      container.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+          const answer = q.nextElementSibling;
+          const icon = q.querySelector('.collapse-icon');
+          if (answer.style.display === 'none') {
+            answer.style.display = 'block';
+            icon.textContent = '▼';
+          } else {
+            answer.style.display = 'none';
+            icon.textContent = '▶';
+          }
+        });
+      });
+    }
+
+    function filterFAQs(text) { renderFAQs(text); }
+    document.getElementById('faqSearchInput')?.addEventListener('input', e => filterFAQs(e.target.value));
+    renderTagCategories();
+    renderFAQs();
+
+    // ===================== 主标签与子标签切换逻辑 =====================
+    const equipTab = document.getElementById('equipTab');
+    const petTab = document.getElementById('petTab');
+    const newbieTab = document.getElementById('newbieTab');
+    const mainBtns = document.querySelectorAll('.tab-btn');
+    const dropToast = document.getElementById('dropToast');
+
+    function switchMainTab(tabId) {
+        [equipTab, petTab, newbieTab].forEach(t => t?.classList.remove('active'));
+        mainBtns.forEach(b => b.classList.remove('active'));
+        const activeBtn = Array.from(mainBtns).find(b => b.dataset.tab === tabId);
+        if (activeBtn) activeBtn.classList.add('active');
+        if (tabId === 'equip') {
+            equipTab?.classList.add('active');
+            if (dropToast) dropToast.style.display = 'block';
+        } else if (tabId === 'pet') {
+            petTab?.classList.add('active');
+            if (dropToast) dropToast.style.display = 'none';
+            if (!synthPanel.classList.contains('active') && !evolutionPanel.classList.contains('active')) switchPetSub('synthesize');
+        } else if (tabId === 'newbie') {
+            newbieTab?.classList.add('active');
+            if (dropToast) dropToast.style.display = 'none';
+        }
+    }
+
+    mainBtns.forEach(btn => {
+        btn.addEventListener('click', () => switchMainTab(btn.dataset.tab));
+    });
+
+    document.querySelectorAll('#newbieTab .sub-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#newbieTab .sub-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('guidePanel').classList.toggle('active', btn.dataset.sub === 'guide');
+            document.getElementById('faqPanel').classList.toggle('active', btn.dataset.sub === 'faq');
+        });
+    });
+
+    equipTab?.classList.remove('active');
+    petTab?.classList.remove('active');
     switchPetSub('synthesize');
 })();
 </script>
