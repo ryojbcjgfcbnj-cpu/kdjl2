@@ -532,7 +532,9 @@
             font-size: 0.9rem;
             z-index: 1000;
             display: block;
-            white-space: nowrap;
+            white-space: normal;
+            max-width: 90vw;
+            text-align: center;
             font-weight: bold;
         }
 
@@ -738,8 +740,7 @@
                 <p>归根结底，在于厘清资源如何获取与转化。如果说养成是游戏的灵魂，那么资源的获取与转化，就是维系游玩体验的血液。笔者认为，偷心服最为出色之处，正在于对“资源血液”循环节奏的精准把控，恰当地保留了“收集—突破—再收集”的养成逻辑，玩家的养成曲线平稳向上，有效规避了养成类游戏长期为人诟病的几大问题（也是导致原作倒闭的问题）：例如，资源失控与数值膨胀、肝氪玩家游戏体验差距极大、长久性卡关造成的停滞与正反馈消散等等。因此，笔者在这里首先推荐一下偷心服，然后在下文详细介绍偷心服的资源获取与转化方式，并按照新手进入游戏的接触顺序进行展开。</p>
                 <p>当然，《口袋精灵2》可能没有真正意义上的新手玩家了，希望本作能带每一位新来的老玩家追寻到那段美好记忆与青春时光。</p>
                 
-                <h3>2. 资源获取与转化</h3>
-                <h4>2. 新手开荒</h4>
+                <h3>2. 新手开荒</h3>
                 <p>首先明确新手玩家的几个重要阶段与节点目标：</p>
                 <p><strong>阶段一：完成新手任务，阶段目标是达到2000成长。</strong>玩家进入游戏后，可以在“活动任务”一栏领取到神宠&lt;魅娘&gt;与一套神装“情人恋”。前者是目前我们的核心培养对象，后者可以确保整个新手阶段的基本战力。</p>
                 
@@ -1695,13 +1696,18 @@
                 });
 
                 // 自适应缩放
-                function resize() {
-                    const maxWidth = wrapper.clientWidth;
-                    const scale = Math.min(maxWidth / 960, 1);
-                    container.style.transform = 'scale(' + scale + ')';
-                    container.style.transformOrigin = 'top left';
-                    wrapper.style.height = (540 * scale) + 'px';
-                }
+function resize() {
+    const maxWidth = wrapper.clientWidth;
+    if (maxWidth === 0 || maxWidth < 50) {
+        setTimeout(resize, 100);
+        return;
+    }
+    const scale = Math.min(maxWidth / 960, 1);
+    if (scale === 0) return;
+    container.style.transform = 'scale(' + scale + ')';
+    container.style.transformOrigin = 'top left';
+    wrapper.style.height = (540 * scale) + 'px';
+}
                 resize();
                 window.addEventListener('resize', resize);
             }
