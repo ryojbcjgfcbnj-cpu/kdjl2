@@ -664,6 +664,133 @@
         @media (max-width: 700px) {
             .floating-note { width: 90%; padding: 15px; }
         }
+        /* 金波姆小游戏样式 */
+        #goldenBomu {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 150px;
+            height: 150px;
+            z-index: 9999;
+            cursor: default;
+            pointer-events: auto;
+        }
+        #goldenBomu img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .evo-material {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            z-index: 9998;
+            cursor: grab;
+            user-select: none;
+            pointer-events: auto;
+        }
+        .evo-material img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        .evo-material.dragging {
+            opacity: 0.6;
+            cursor: grabbing;
+        }
+        .evo-material.used {
+            display: none;
+        }
+        #evolutionToast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #2c2418e6;
+            color: #ffefcf;
+            padding: 20px 30px;
+            border-radius: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 10000;
+            display: none;
+            border: 2px solid #f5bc70;
+            text-align: center;
+        }
+        /* 写在前面样式 */
+        .foreword-content {
+            background: #fffaf0;
+            border-radius: 1.5rem;
+            padding: 30px 35px;
+            border: 1px solid #f5dcac;
+            line-height: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .foreword-content h3 {
+            color: #a46f2c;
+            margin: 35px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f5dcac;
+            font-size: 1.2rem;
+        }
+        .foreword-content h3:first-of-type {
+            margin-top: 0;
+        }
+        .foreword-content p {
+            text-indent: 2em;
+            margin-bottom: 12px;
+            color: #3d2b14;
+        }
+        .foreword-content ul {
+            margin: 12px 0 12px 2em;
+            list-style: none;
+        }
+        .foreword-content ul li {
+            margin-bottom: 8px;
+            color: #3d2b14;
+        }
+        .foreword-content ul li::before {
+            content: "✦ ";
+            color: #f5bc70;
+        }
+        .foreword-opening {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #8b5a2b;
+            text-indent: 0 !important;
+            margin-bottom: 30px !important;
+        }
+        .foreword-subtitle {
+            color: #b87c3c;
+            font-size: 0.9rem;
+            text-indent: 2em;
+            margin-top: -8px;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .foreword-highlight {
+            color: #c9922b;
+            font-weight: bold;
+            text-indent: 2em;
+            font-size: 1.05rem;
+        }
+        .foreword-pet-list {
+            text-align: center;
+            color: #a46f2c;
+            font-weight: bold;
+            text-indent: 0 !important;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+        .foreword-ending {
+            text-align: center;
+            font-size: 1.15rem;
+            text-indent: 0 !important;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -672,9 +799,88 @@
     <div class="sub">✦ 装备掉落 | 宠物合成 + 五行进化 · 新手攻略 ✦</div>
 
     <div class="tabs">
+        <button class="tab-btn" data-tab="foreword">📜 写在前面</button>
         <button class="tab-btn" data-tab="equip">⚔️ 装备图鉴</button>
         <button class="tab-btn" data-tab="pet">🐾 宠物图鉴</button>
-        <button class="tab-btn active" data-tab="newbie">🌱 新手攻略</button>
+        <button class="tab-btn active" data-tab="newbie">🌱 新手专区</button>
+    </div>
+    <!-- 写在前面 Tab -->
+    <div id="forewordTab" class="tab-content">
+        <div class="foreword-content">
+            <p class="foreword-opening">你还记得那只波姆吗？</p>
+
+            <h3>一、我的故事</h3>
+            <p>我第一次玩《口袋精灵2》的时候，还在上小学。</p>
+            <p>那时候4399是每天放学后的必备去处，偶然一次，在页游分类里翻到了《口袋精灵2》。输入网址、选第一只宠物——我选了金波姆。不是因为攻略推荐，纯粹是觉得金灿灿的好看。</p>
+            <p>从金波姆到波光姆，再到雷炎鼠、圣洁独角兽，一路进化合成到天羽圣马。那时候不知道攻略可以查，全靠自己和游戏里认识的朋友瞎摸索。稀有的进化材料打了好几天地图意外爆出来，开心了整整一个星期。后来靠着系统送的波姆兔，又合出了金龙霸王。那时候愿望很简单，也很坚定——一定要合出小神龙。</p>
+            <p class="foreword-highlight">可是突然有一天，网页打不开了。</p>
+            <p>看着停服公告。那大概是我人生中第一次意识到，原来喜欢的东西是会消失的。</p>
+            <p>但那份对"养成"的热爱没有消失。后来玩了赛尔号，追了数码宝贝，玩了宝可梦、幻兽帕鲁。这些作品一直在延续我心里那个关于宠物、伙伴、进化的梦想。一路读书到博士毕业，游戏玩了很多，但再也没找到那种感觉——那种放学回家打开网页就能进入另一个世界的单纯快乐。</p>
+            <p>前段时间，五一期间心血来潮想去贴吧再看看，发现还有偷心服。</p>
+            <p>说实话，现在的私服很多。但我体验下来，偷心服是目前做得最用心的一个。没有无底洞的氪金，没有乱改的数据，尽可能还原了原作的养成节奏和风味。牧台挂机、五行进化、跑环任务、CC成长值……那个曾经让我废寝忘食的配方，几乎一模一样地回来了。</p>
+            <p class="foreword-highlight">上线的那一刻，熟悉的城镇界面亮起。这次终于可以好好玩一次了。</p>
+
+            <h3>二、如果你也曾是那个抓波姆的小孩</h3>
+            <p class="foreword-subtitle">情怀老玩家</p>
+            <p>你还记得这些名字吗？</p>
+            <p class="foreword-pet-list">金波姆、金龙霸王、冰龙苍海、天界玉兔、恶魔波姆、黄金鸟教皇、圣羽天马、青龙琅琅……</p>
+            <p>你还记得那种感觉吗？放学回家书包一扔，打开网页看宠物今天升了多少级。为了一只稀有进化的材料，在地图里刷了一整个周末。合成公式靠手抄，攻略靠口口相传，在游戏里认识的朋友比现实中的同学还聊得来。</p>
+            <p class="foreword-highlight">后来关服了。那大概是我们这代人第一次经历"服务器关闭"。没有公告，没有告别，只是突然有一天就打不开了。</p>
+            <p>但它又回来了。</p>
+            <p>偷心服还原了那个时代的节奏。牧台挂机让你上班也能养宠，跑环任务给你稳定的养成资源，五行进化路线图和老玩家写的万字攻略帮你补全当年的遗憾。</p>
+            <p>群里有同龄的老玩家讨论合成公式，有人送装备、送材料，有人帮你过卡关任务。当年那个琢磨不明白合成公式的你，现在终于可以好好玩一次了。</p>
+            <p class="foreword-highlight">那只停在进化途中的波姆，还在等你回去。</p>
+
+            <h3>三、如果你喜欢宠物养成但没玩过原作</h3>
+            <p class="foreword-subtitle">养成游戏爱好者</p>
+            <p>如果你喜欢宠物养成，那你大概率也会喜欢上《口袋精灵2》。</p>
+            <p>核心玩法很简单：<strong>抓宠 → 涅槃 → 进化 → 变强 → 开图鉴</strong>。主要系统包括：</p>
+            <ul>
+                <li><strong>CC成长值系统：</strong>这是游戏最核心的养成指标，涅槃、进化、转生都围绕它展开</li>
+                <li><strong>上百种合成公式：</strong>从基础波姆到高阶神宠，每一步都有明确路径，也有惊喜的稀有产物</li>
+                <li><strong>装备搭配：</strong>盛世系列、自然系列、女神系列、仙侠套装……装备不只是数值，还有专属任务和获取途径</li>
+            </ul>
+            <p>没有强制日常，没有打卡式活动。把宠物放进牧台就可以去忙别的，回来收菜看收获。碎片时间手动推推副本。</p>
+            <p>节奏完全自己掌控，慢慢玩半年也乐在其中。</p>
+            <p>最难得的是服务器氛围。老玩家愿意带新人，群里有人解答问题、有人分享攻略心得、有人送过渡装备。你不用担心"入坑太晚"——总会有人帮你追上进度。</p>
+
+            <h3>四、如果你是收集党 / 图鉴控</h3>
+            <p>如果说养成是核心，那收集就是终极目标。</p>
+            <p>宠物图鉴 + 装备图鉴 + 进化路线图，三位一体的收集系统让强迫症得到极致满足：</p>
+            <ul>
+                <li><strong>宠物图鉴：</strong>从基础五系波姆，到高阶神宠、盛世宠物、口袋女神系列、自然女神、散神……每收集一只宠，图鉴加成就会提升你的全属性。用不到的宠也能化为战力，收集本身就是成长。</li>
+                <li><strong>装备图鉴：</strong>用装备兑换永久属性加成。珠系列、铃铛系列、护身系列、龙宫系列、雷霆暴风系列、女神系列……每点亮一个图标，就是一次正反馈。</li>
+                <li><strong>进化路线图：</strong>金木水火土五系，每一条路线都是一张精心设计的树状图。看着宠物从普通到稀有再到神级，路径清晰、成就可期。</li>
+            </ul>
+            <p>喜欢整理规划、一步步填满格子、看着完成度从1%到100%的人——你在这里会很快乐。</p>
+
+            <h3>五、如果你是佛系挂机党 / 工作忙没时间</h3>
+            <p>你需要的是一款不需要上班打卡、不需要被日常任务绑架的游戏。</p>
+            <p>偷心服的牧台挂机系统完美解决了这个问题：</p>
+            <ul>
+                <li>宠物放进牧场，设定好挂机地图和时间，就可以关电脑</li>
+                <li>系统自动刷怪，一分钟打4只，挂满24小时自动停止</li>
+                <li>许可证放在背包里就生效</li>
+                <li>挂机期间可以做任何事——推副本、做任务、合成宠物，互不干扰</li>
+            </ul>
+            <p>上班前挂上，下班收菜。睡前挂上，起床收一波。碎片时间手动玩玩，大块时间研究研究路线。不会因为"今天没空"而焦虑，也不会有"跟不上进度"的压力。</p>
+            <p class="foreword-highlight">这大概是最适合忙碌成年人的宠物养成游戏了。</p>
+
+            <h3>六、如果你是被"私服"两个字劝退的人</h3>
+            <p>我理解你的顾虑。</p>
+            <p>说实话，这两年私服确实很多，质量参差不齐。有的滚服跑路，有的魔改数据，有的氪金无底洞。但偷心服不太一样——</p>
+            <ul>
+                <li><strong>不卖数值：</strong>氪金只限于定制和战令，不影响核心养成体验。非氪玩家完全能玩到顶</li>
+                <li><strong>数据平衡：</strong>保留了原作的养成节奏，没有魔改的变态宠和爆炸数值</li>
+                <li><strong>氛围好：</strong>群里互助氛围浓厚，骗子没有生存空间</li>
+            </ul>
+            <p>我自己是个纯玩家，不赚钱、不当管理、不卖装备。写这篇纯粹是想让更多同好知道——童年那个服务器还在，有人在等他回去。</p>
+
+            <h3>七、写在最后</h3>
+            <p>从小学生到步入社会，玩过很多游戏，但没有一款能替代《口袋精灵2》在我心里的位置。</p>
+            <p>因为那不只是一个游戏。是我第一次为了一个虚拟世界付出真心；第一次认识到，有些东西会消失，但有些热爱不会。</p>
+            <p class="foreword-highlight foreword-ending">那只金波姆已经进化成金龙霸王了。<br>你的呢？</p>
+        </div>
     </div>
 
     <!-- 装备图鉴 Tab -->
@@ -688,10 +894,10 @@
     <!-- 宠物图鉴 Tab -->
     <div id="petTab" class="tab-content">
         <div class="pet-sub-tabs">
-            <button class="pet-sub-btn active" data-sub="synthesize">🐣 合成图鉴</button>
+            <button class="pet-sub-btn" data-sub="synthesize">🐣 合成图鉴</button>
             <button class="pet-sub-btn" data-sub="evolution">🌟 进化图鉴</button>
         </div>
-        <div id="synthesizePanel" class="pet-sub-pane active">
+        <div id="synthesizePanel" class="pet-sub-pane">
             <div class="toolbar">
                 <div class="search-box"><input type="text" id="petSearch" placeholder="搜索宠物..."></div>
                 <div class="toolbar-right">
@@ -863,7 +1069,8 @@
 <div id="ccFloating" class="floating-note" style="max-width:650px;"><h4>🔄 圣殿宠物刷CC途径</h4><div id="ccContent"></div></div>
 <div id="otherCcFloating" class="floating-note" style="max-width:650px;"><h4>🔄 其他神宠刷CC途径</h4><div id="otherCcContent"></div></div>
 <div id="seaCcFloating" class="floating-note" style="max-width:650px;"><h4>🔄 海底神宠刷CC途径</h4><div id="seaCcContent"></div></div>
-
+    <div id="goldenBomu"><img src="jinbomu.gif" alt="金波姆"></div>
+    <div id="evolutionToast">✨ 进化成功！<span id="evoNewName"></span> ✨</div>
 <script>
 (function() {
     // ===================== 装备数据库 =====================
@@ -1897,6 +2104,7 @@ function resize() {
     renderFAQs();
 
     // ===================== 主标签与子标签切换逻辑 =====================
+    const forewordTab = document.getElementById('forewordTab');
     const equipTab = document.getElementById('equipTab');
     const petTab = document.getElementById('petTab');
     const newbieTab = document.getElementById('newbieTab');
@@ -1904,12 +2112,15 @@ function resize() {
     const dropToast = document.getElementById('dropToast');
     dropToast.style.display = 'none';   // ← 加这行，默认隐藏
 
-    function switchMainTab(tabId) {
-        [equipTab, petTab, newbieTab].forEach(t => t?.classList.remove('active'));
+       function switchMainTab(tabId) {
+        [forewordTab, equipTab, petTab, newbieTab].forEach(t => t?.classList.remove('active'));
         mainBtns.forEach(b => b.classList.remove('active'));
         const activeBtn = Array.from(mainBtns).find(b => b.dataset.tab === tabId);
         if (activeBtn) activeBtn.classList.add('active');
-        if (tabId === 'equip') {
+        if (tabId === 'foreword') {
+            forewordTab?.classList.add('active');
+            if (dropToast) dropToast.style.display = 'none';
+        } else if (tabId === 'equip') {
             equipTab?.classList.add('active');
             if (dropToast) dropToast.style.display = 'block';
         } else if (tabId === 'pet') {
@@ -1939,6 +2150,162 @@ function resize() {
     petTab?.classList.remove('active');
     switchPetSub('synthesize');
 })();
+     // ===================== 金波姆进化小游戏 =====================
+    (function() {
+        const evoChain = ['波光姆', '金波姆王', '雷光鼠', '圣洁独角兽', '紫貘', '天羽圣马'];
+        const evoGifs = {
+            '波光姆': 'boguangmu.gif',
+            '金波姆王': 'jinbomuwang.gif',
+            '雷光鼠': 'leiguangshu.gif',
+            '圣洁独角兽': 'shengjiedujiaoshou.gif',
+            '紫貘': 'zimo.gif',
+            '天羽圣马': 'tianyushengma.gif'
+        };
+        let currentEvoIndex = 0;
+        const placedPages = new Set();
+        let goldenBomu = document.getElementById('goldenBomu');
+        const evoToast = document.getElementById('evolutionToast');
+        const evoNewName = document.getElementById('evoNewName');
+        let activeMaterial = null;
+        let isDragging = false;
+        let startX, startY, origLeft, origTop;
+
+        function evolve() {
+            if (currentEvoIndex >= evoChain.length) return;
+            const newName = evoChain[currentEvoIndex];
+            goldenBomu.querySelector('img').src = evoGifs[newName];
+            evoNewName.textContent = newName;
+            evoToast.style.display = 'block';
+            setTimeout(function() { evoToast.style.display = 'none'; }, 2000);
+            currentEvoIndex++;
+            if (currentEvoIndex >= evoChain.length) {
+                setTimeout(function() {
+                    evoToast.innerHTML = '🎉 恭喜！已完成全部进化！🎉';
+                    evoToast.style.display = 'block';
+                    setTimeout(function() { evoToast.style.display = 'none'; }, 3000);
+                }, 2500);
+            }
+        }
+
+        function checkCollision(el) {
+            var b = goldenBomu.getBoundingClientRect();
+            var m = el.getBoundingClientRect();
+            var cx = m.left + m.width / 2;
+            var cy = m.top + m.height / 2;
+            return cx > b.left && cx < b.right && cy > b.top && cy < b.bottom;
+        }
+
+        function placeMaterial(container) {
+            if (!container) return;
+            var material = document.createElement('div');
+            material.className = 'evo-material';
+            material.style.position = 'fixed';
+            material.style.zIndex = '9998';
+            var img = document.createElement('img');
+            img.src = 'jinhuacailiao.gif';
+            img.draggable = false;
+            material.appendChild(img);
+
+            var contRect = container.getBoundingClientRect();
+            material.style.left = (contRect.left + 50) + 'px';
+            material.style.top = (contRect.top + 50) + 'px';
+
+            material.addEventListener('mousedown', function(e) {
+                if (material.classList.contains('used')) return;
+                activeMaterial = material;
+                isDragging = true;
+                material.classList.add('dragging');
+                startX = e.clientX;
+                startY = e.clientY;
+                origLeft = material.offsetLeft;
+                origTop = material.offsetTop;
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            material.addEventListener('touchstart', function(e) {
+                if (material.classList.contains('used')) return;
+                activeMaterial = material;
+                isDragging = true;
+                material.classList.add('dragging');
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+                origLeft = material.offsetLeft;
+                origTop = material.offsetTop;
+                e.stopPropagation();
+            }, { passive: false });
+
+            document.body.appendChild(material);
+        }
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging || !activeMaterial) return;
+            activeMaterial.style.left = (origLeft + e.clientX - startX) + 'px';
+            activeMaterial.style.top = (origTop + e.clientY - startY) + 'px';
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging || !activeMaterial) return;
+            activeMaterial.style.left = (origLeft + e.touches[0].clientX - startX) + 'px';
+            activeMaterial.style.top = (origTop + e.touches[0].clientY - startY) + 'px';
+        }, { passive: false });
+
+        document.addEventListener('mouseup', function() {
+            if (!isDragging || !activeMaterial) return;
+            isDragging = false;
+            activeMaterial.classList.remove('dragging');
+            if (checkCollision(activeMaterial)) {
+                activeMaterial.classList.add('used');
+                evolve();
+            }
+            activeMaterial = null;
+        });
+
+        document.addEventListener('touchend', function() {
+            if (!isDragging || !activeMaterial) return;
+            isDragging = false;
+            activeMaterial.classList.remove('dragging');
+            if (checkCollision(activeMaterial)) {
+                activeMaterial.classList.add('used');
+                evolve();
+            }
+            activeMaterial = null;
+        });
+
+        var pagesToWatch = [
+            { id: 'forewordTab', key: 'foreword' },
+            { id: 'synthesizePanel', key: 'synth' },
+            { id: 'evolutionPanel', key: 'evo' },
+            { id: 'guidePanel', key: 'guide' },
+            { id: 'faqPanel', key: 'faq' },
+            { id: 'equipTab', key: 'equip' }
+        ];
+
+        function checkPages() {
+            pagesToWatch.forEach(function(p) {
+                var el = document.getElementById(p.id);
+                if (!el) return;
+                if (!el.classList.contains('active')) return;
+                if (placedPages.has(p.key)) return;
+                if (el.clientWidth === 0 || el.clientHeight === 0) return;
+                placedPages.add(p.key);
+                setTimeout(function() { placeMaterial(el); }, 300);
+            });
+        }
+
+        var observer = new MutationObserver(checkPages);
+        observer.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class'] });
+
+        // 页面加载后多次检查
+        setTimeout(checkPages, 300);
+        setTimeout(checkPages, 800);
+        setTimeout(checkPages, 1500);
+
+        // 监听所有点击事件（用户切换标签时触发）
+        document.addEventListener('click', function() {
+            setTimeout(checkPages, 200);
+        });
+    })();
 </script>
 </body>
 </html>
